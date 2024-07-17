@@ -57,14 +57,13 @@ class DQNAgent:
         self.step = 0
         self.set_model(config)
 
-
     def set_model(self, config):
         self.weight_file_name = config['weight_file_path']
         self.weight_file = os.path.isfile(self.weight_file_name)
         self.device = device('cuda' if cuda.is_available() else 'cpu')
         self.learning_rate = config['learning_rate']
 
-        if config['file_make']:
+        if config['make_file']:
             self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range_size, config['hidden_layers']).to(self.device)
         else:
             try:
@@ -95,7 +94,6 @@ class DQNAgent:
 
         # Processes the data for input into the neural network
         self.inputs = torch.tensor(self.inputs, requires_grad=True).float().unsqueeze(0).to(self.device)
-        
         
     def act(self):
         '''Decides the action to be taken by the robot based on the neural network's output.'''
@@ -135,8 +133,6 @@ class DQNAgent:
         }
         
         return action, one_hot
-
-
     
     def learn(self, states, action, reward, one_hot, next_state, done):
         # Get joint states (angles and torques)
@@ -150,7 +146,6 @@ class DQNAgent:
         self.inputs = torch.tensor(self.inputs, requires_grad=True).float().unsqueeze(0).to(self.device)
         
         self.store(action, reward, one_hot)
-
         self.episode += 1
 
     def store(self, action, reward, one_hot):

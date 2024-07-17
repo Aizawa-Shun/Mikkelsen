@@ -5,7 +5,7 @@ from simulation.training import train_agent
 
 def run_dql_simulation3d(config):
     environment = Environment(config['simulation'])
-    agent = DQNAgent(config['dql_agent']['input_size'],  config['dql_agent'])
+    agent = DQNAgent(config['dql_agent']['input_size'], config['dql_agent'])
     train_agent(environment, agent, config['dql_agent'])
     environment.disconnect()
 
@@ -23,4 +23,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    

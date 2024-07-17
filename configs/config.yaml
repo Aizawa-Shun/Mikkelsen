@@ -6,20 +6,20 @@ simulation:
   episodes: 1000
   dt: 0.01
   step_dt: 1.0
-  gui: True
+  gui: False
   initial_position: [0, 0, 0.35] # Initial robot position
   initial_orientation: [0, 0, 0] # Initial robot orientation
 
 real_robot:
 
 dql_agent:
-  episodes: 1000
+  episodes: 10000000
   target_reward: 10
   targget_update: 10
   input_size: 20
   output_dim: 8
   hidden_layers: [32, 64]
   learning_rate: 0.001
-  file_make: True
+  make_file: True
   weight_file_path: "dql_weight"
   weight_save_path: "simulation/weight"

@@ -190,7 +190,8 @@ class Environment:
         reward = 0
 
         # Reward based on Center of Mass (CoM) height
-        target_height = 0.28
+        target_height = 0.30
+        print(self.states['pos'][2])
         height_diff = abs(self.states['pos'][2] - target_height)
         reward += max(0, 1 - height_diff)
 
@@ -198,19 +199,15 @@ class Environment:
         lateral_position = abs(self.states['pos'][0]) + abs(self.states['pos'][1])
         reward += max(0, 1 - lateral_position)
 
-        # Reward based on upright angle
-        angle_stability = (abs(self.states['angle'][0]) + abs(self.states['angle'][1])) / np.pi
-        reward += max(0, 1 - angle_stability)
-
         # Penalties based on overall power, speed, and energy consumption
         reward -= self.states['total_force'] * 0.05     # Penalties based on total force
-        reward -= self.states['total_velocity'] * 0.05  # Penalties based on total velocity
+        # reward -= self.states['total_velocity'] * 0.05  # Penalties based on total velocity
 
         # Check if both feet are in contact with the ground
         if self.states['left_foot_contact'] and self.states['right_foot_contact']:
-            reward += 3.0
+            reward += 3.5
         else:
-            reward -= 0.5
+            reward -= 1.0
 
         return reward
     
