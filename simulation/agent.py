@@ -53,7 +53,8 @@ class DQNAgent:
         }
         self.targget_update = config['targget_update']
         self.weight_save_path = config['weight_save_path']
-        self.episode = 0
+        self.target_reward = config['target_reward']
+        print(f'[INFO] Target Reward: {self.target_reward}')
         self.step = 0
         self.set_model(config)
 
@@ -61,6 +62,7 @@ class DQNAgent:
         self.weight_file_name = config['weight_file_path']
         self.weight_file = os.path.isfile(self.weight_file_name)
         self.device = device('cuda' if cuda.is_available() else 'cpu')
+        print(f'[INFO] Using Device: {self.device.type}')
         self.learning_rate = config['learning_rate']
 
         if config['make_file']:
@@ -146,7 +148,6 @@ class DQNAgent:
         self.inputs = torch.tensor(self.inputs, requires_grad=True).float().unsqueeze(0).to(self.device)
         
         self.store(action, reward, one_hot)
-        self.episode += 1
 
     def store(self, action, reward, one_hot):
         '''Stores information from each step of the learning process.'''
@@ -181,12 +182,12 @@ class DQNAgent:
         self.policies = torch.cat([self.policies, torch.tensor(self.policy_list, requires_grad=True).view(1, -1)])
         self.rewards = torch.cat([self.rewards, torch.tensor(self.reward_list, requires_grad=True).view(1, -1)])
         self.steps = torch.cat([self.steps, tensor([float(self.step)], requires_grad=True)])
-
-        self.calculate_average_reward()
     
     def calculate_average_reward(self):
         '''Calculates the average reward over all episodes.'''
-        self.average_reward = self.rewards.sum(dim=0).mean().item()
+        rewards = torch.cat([self.rewards, torch.tensor(self.reward_list, requires_grad=True).view(1, -1)])
+        average_reward = rewards.sum(dim=0).mean().item()
+        return average_reward
 
     def update_policy(self):
         '''Updates the policy based on the rewards and policies collected during the episodes.'''

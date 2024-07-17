@@ -1,3 +1,8 @@
+from utils.data_saver import DataSaver
+from utils.plotter import Plotter
+
+data_saver = DataSaver('data/training_data.csv')
+
 def train_agent(environment, agent, config):
     target_reward = config['target_reward']
 
@@ -17,9 +22,18 @@ def train_agent(environment, agent, config):
             agent.learn(states, action, reward, one_hot, next_state, done)
             states = next_state
         
+        # Calculate average reward
+        average_reward = agent.calculate_average_reward()
+        # Save data
+        data_saver.save_data(episode, average_reward)
+        
         if episode % agent.targget_update == 0:
             agent.update_store_data()
             agent.update_policy()
-            print(f'[{episode} episode] average reward: {agent.average_reward:.2f}')
-            if agent.average_reward >= target_reward:
+            average_reward = agent.calculate_average_reward()
+            print(f'[{episode} episode] average reward: {average_reward:.2f}')
+
+            # Finish learning
+            if average_reward >= target_reward:
                 agent.save_weight_file()
+                Plotter.plot_data('data/training_data.csv')
