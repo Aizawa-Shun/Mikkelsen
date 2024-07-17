@@ -191,7 +191,6 @@ class Environment:
 
         # Reward based on Center of Mass (CoM) height
         target_height = 0.30
-        print(self.states['pos'][2])
         height_diff = abs(self.states['pos'][2] - target_height)
         reward += max(0, 1 - height_diff)
 
