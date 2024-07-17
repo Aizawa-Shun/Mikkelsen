@@ -1,4 +1,4 @@
-mode: "simulation"
+mode: "simulation3d"
 
 simulation:
   robot_urdf: "simulation/urdf/bionic_biped_robot_description/urdf/bionic_biped_robot.xacro"
@@ -12,8 +12,9 @@ simulation:
 
 real_robot:
 
-dqn_agent:
+dql_agent:
   episodes: 1000
+  target_reward: 10
   targget_update: 10
   input_size: 20
   output_dim: 8
@@ -21,3 +22,4 @@ dqn_agent:
   learning_rate: 0.001
   file_make: True
   weight_file_path: "dql_weight"
+  weight_save_path: "simulation/weight"

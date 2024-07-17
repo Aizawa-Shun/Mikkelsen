@@ -65,9 +65,6 @@ class Environment:
         # Dictionary to store the robot's state
         self.states = {'pos': 0}
 
-
-
-
     def load_robot(self, robot_path):
         initial_orientation = p.getQuaternionFromEuler(self.initial_orientation)   # Convert from Euler to Quaternion
         return p.loadURDF(robot_path, basePosition=self.initial_position, baseOrientation=initial_orientation)
@@ -105,7 +102,7 @@ class Environment:
     
     def step(self, action):
         p.stepSimulation()
-        sleep(self.dt)
+        if self.gui: sleep(self.dt)
         self.t += self.dt
         self.interval += 0
 
@@ -114,13 +111,12 @@ class Environment:
         self.get_observation()
         reward = self.calculate_reward()
         done = self.check_done()
-        info = {}
 
-        return  reward, done, info
+        return  reward, done
     
     def step_simulation(self):
         p.stepSimulation()
-        sleep(self.dt)
+        if self.gui: sleep(self.dt)
         self.t += self.dt
         self.interval += self.dt
     

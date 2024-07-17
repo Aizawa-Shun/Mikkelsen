@@ -52,6 +52,7 @@ class DQNAgent:
             }
         }
         self.targget_update = config['targget_update']
+        self.weight_save_path = config['weight_save_path']
         self.episode = 0
         self.step = 0
         self.set_model(config)
@@ -186,6 +187,12 @@ class DQNAgent:
         self.rewards = torch.cat([self.rewards, torch.tensor(self.reward_list, requires_grad=True).view(1, -1)])
         self.steps = torch.cat([self.steps, tensor([float(self.step)], requires_grad=True)])
 
+        self.calculate_average_reward()
+    
+    def calculate_average_reward(self):
+        '''Calculates the average reward over all episodes.'''
+        self.average_reward = self.rewards.sum(dim=0).mean().item()
+
     def update_policy(self):
         '''Updates the policy based on the rewards and policies collected during the episodes.'''
         reward_ave = (self.rewards.nansum(dim=1) / self.steps).mean()
@@ -198,3 +205,6 @@ class DQNAgent:
         J.backward()
         self.opt.step()
         self.opt.zero_grad()
+    
+    def save_weight_file(self):
+        torch.save(self.model, self.weight_save_path)
