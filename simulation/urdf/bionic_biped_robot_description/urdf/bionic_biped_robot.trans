@@ -1,0 +1,180 @@
+<?xml version="1.0" ?>
+<robot name="bionic_biped_robot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<transmission name="‰ñ“] 227_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 227">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 227_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 230_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 230">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 230_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 233_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 233">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 233_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 236_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 236">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 236_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 241_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 241">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 241_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 244_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 244">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 244_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 245_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 245">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 245_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 249_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 249">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 249_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 271_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 271">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 271_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 274_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 274">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 274_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 277_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 277">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 277_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 280_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 280">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 280_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 285_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 285">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 285_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 288_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 288">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 288_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 292_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 292">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 292_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="‰ñ“] 294_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="‰ñ“] 294">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="‰ñ“] 294_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+</robot>

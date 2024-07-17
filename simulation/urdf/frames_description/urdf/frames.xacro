@@ -1,0 +1,567 @@
+<?xml version="1.0" ?>
+<robot name="frames" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find frames_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find frames_description)/urdf/frames.trans" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.2899933075909157 0.25500862074127895 0.25" rpy="0 0 0"/>
+    <mass value="0.7381890004738041"/>
+    <inertia ixx="0.015409" iyy="0.015409" izz="6e-05" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="frame_50mm__v1__1__1">
+  <inertial>
+    <origin xyz="0.0065066924090841916 -0.25000000000000006 -0.009991379258721178" rpy="0 0 0"/>
+    <mass value="0.7381890004738041"/>
+    <inertia ixx="0.015409" iyy="6e-05" izz="0.015409" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.2965 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.2965 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1_1">
+  <inertial>
+    <origin xyz="-0.002999999999999725 -0.01119098457888501 -0.011190984578885121" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="1e-05" iyy="8e-06" izz="8e-06" ixy="0.0" iyz="2e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.287 -0.245 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.287 -0.245 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="frame_50mm___1">
+  <inertial>
+    <origin xyz="0.006506692409084303 -0.0099913792587209 -0.25" rpy="0 0 0"/>
+    <mass value="0.7381890004738041"/>
+    <inertia ixx="0.015409" iyy="0.015409" izz="6e-05" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.2965 0.255 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm___1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.2965 0.255 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm___1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="frame_60mm__v3_1">
+  <inertial>
+    <origin xyz="0.30000000000000043 0.006508620689125111 -0.01000669240908375" rpy="0 0 0"/>
+    <mass value="0.8858268005685649"/>
+    <inertia ixx="7.2e-05" iyy="0.026611" izz="0.026611" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.28 0.2715 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_60mm__v3_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.28 0.2715 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_60mm__v3_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="frame_50mm__v1__3__1">
+  <inertial>
+    <origin xyz="0.010006692409084306 0.006508620741279114 -0.24999999999999972" rpy="0 0 0"/>
+    <mass value="0.7381890004738041"/>
+    <inertia ixx="0.015409" iyy="0.015409" izz="6e-05" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.32 0.2715 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__3__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.32 0.2715 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__3__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="frame_50mm__v1__5__1">
+  <inertial>
+    <origin xyz="-0.00649330759091582 0.24999999999999972 -0.010008620741279006" rpy="0 0 0"/>
+    <mass value="0.7381890004738041"/>
+    <inertia ixx="0.015409" iyy="6e-05" izz="0.015409" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.3365 0.255 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__5__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.3365 0.255 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__5__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="frame_60mm__v3__1__1">
+  <inertial>
+    <origin xyz="0.30000000000000027 -0.006491379258721064 -0.01000669240908375" rpy="0 0 0"/>
+    <mass value="0.8858268005685649"/>
+    <inertia ixx="7.2e-05" iyy="0.026611" izz="0.026611" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.28 -0.2615 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_60mm__v3__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.28 -0.2615 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_60mm__v3__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="frame_50mm__v1__4__1">
+  <inertial>
+    <origin xyz="-0.006493307590915709 0.01000862074127895 -0.24999999999999972" rpy="0 0 0"/>
+    <mass value="0.7381890004738041"/>
+    <inertia ixx="0.015409" iyy="0.015409" izz="6e-05" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.3365 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__4__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.3365 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__4__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="frame_50mm__v1__6__1">
+  <inertial>
+    <origin xyz="-0.30999137925872083 -0.25000000000000033 -0.010006692409083862" rpy="0 0 0"/>
+    <mass value="0.7381890004738041"/>
+    <inertia ixx="0.015409" iyy="6e-05" izz="0.015409" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.32 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__6__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.32 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/frame_50mm__v1__6__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__9__1">
+  <inertial>
+    <origin xyz="0.011190984578885343 -0.010000000000000064 -0.0111909845788849" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="8e-06" iyy="1e-05" izz="8e-06" ixy="0.0" iyz="0.0" ixz="-2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.28 -0.265 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__9__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.28 -0.265 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__9__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__8__1">
+  <inertial>
+    <origin xyz="0.011190984578885343 0.009999999947846117 -0.0111909845788849" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="8e-06" iyy="1e-05" izz="8e-06" ixy="-0.0" iyz="0.0" ixz="-2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.28 0.275 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__8__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.28 0.275 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__8__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__6__1">
+  <inertial>
+    <origin xyz="0.010000000000000286 0.01119098457888515 -0.011190984578885343" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="1e-05" iyy="8e-06" izz="8e-06" ixy="0.0" iyz="-2e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.3 0.255 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__6__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.3 0.255 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__6__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__7__1">
+  <inertial>
+    <origin xyz="-0.011190984578884733 -0.010000000000000175 -0.0111909845788849" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="8e-06" iyy="1e-05" izz="8e-06" ixy="-0.0" iyz="-0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.32 -0.265 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__7__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.32 -0.265 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__7__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__10__1">
+  <inertial>
+    <origin xyz="-0.009999999999999676 -0.011190984578885482 -0.0111909845788849" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="1e-05" iyy="8e-06" izz="8e-06" ixy="0.0" iyz="2e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.34 -0.245 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__10__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.34 -0.245 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__10__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__2__1">
+  <inertial>
+    <origin xyz="-0.010000000000000009 0.011190984578884872 -0.011190984578884733" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="1e-05" iyy="8e-06" izz="8e-06" ixy="-0.0" iyz="-2e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.34 0.255 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__2__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.34 0.255 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__2__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__4__1">
+  <inertial>
+    <origin xyz="-0.011190984578884289 0.009999999947846117 -0.0111909845788849" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="8e-06" iyy="1e-05" izz="8e-06" ixy="0.0" iyz="0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.32 0.275 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__4__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.32 0.275 -0.48" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__4__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__3__1">
+  <inertial>
+    <origin xyz="-0.031190984578884723 -0.011190984578885288 -0.010000000000000009" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="8e-06" iyy="8e-06" izz="1e-05" ixy="2e-06" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.02 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__3__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.02 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__3__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__5__1">
+  <inertial>
+    <origin xyz="0.011190984578884938 -0.011190984578885288 -0.010000000000000009" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="8e-06" iyy="8e-06" izz="1e-05" ixy="-2e-06" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.02 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__5__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.02 -0.245 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__5__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__1__1">
+  <inertial>
+    <origin xyz="0.011190984578884938 0.011190984578884455 -0.010000000000000009" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="8e-06" iyy="8e-06" izz="1e-05" ixy="2e-06" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.02 0.255 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.02 0.255 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="clasp_v1__11__1">
+  <inertial>
+    <origin xyz="-0.011190984578884724 0.011190984578884455 -0.010000000000000009" rpy="0 0 0"/>
+    <mass value="0.08823399999999999"/>
+    <inertia ixx="8e-06" iyy="8e-06" izz="1e-05" ixy="-2e-06" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 0.255 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__11__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 0.255 -0.5" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://frames_description/meshes/clasp_v1__11__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="„« 1" type="fixed">
+  <origin xyz="-0.2965 0.245 0.5" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="frame_50mm__v1__1__1"/>
+</joint>
+
+<joint name="„« 2" type="fixed">
+  <origin xyz="0.0095 0.0 -0.02" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__1__1"/>
+  <child link="clasp_v1_1"/>
+</joint>
+
+<joint name="„« 3" type="fixed">
+  <origin xyz="0.0 -0.5 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__1__1"/>
+  <child link="frame_50mm___1"/>
+</joint>
+
+<joint name="„« 4" type="fixed">
+  <origin xyz="0.0165 -0.0165 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm___1"/>
+  <child link="frame_60mm__v3_1"/>
+</joint>
+
+<joint name="„« 5" type="fixed">
+  <origin xyz="0.6 0.0 0.0" rpy="0 0 0"/>
+  <parent link="frame_60mm__v3_1"/>
+  <child link="frame_50mm__v1__3__1"/>
+</joint>
+
+<joint name="„« 6" type="fixed">
+  <origin xyz="0.0165 0.0165 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__3__1"/>
+  <child link="frame_50mm__v1__5__1"/>
+</joint>
+
+<joint name="„« 7" type="fixed">
+  <origin xyz="-0.28 0.2615 0.5" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="frame_60mm__v3__1__1"/>
+</joint>
+
+<joint name="„« 8" type="fixed">
+  <origin xyz="0.0 0.5 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__5__1"/>
+  <child link="frame_50mm__v1__4__1"/>
+</joint>
+
+<joint name="„« 9" type="fixed">
+  <origin xyz="-0.0165 0.5 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__5__1"/>
+  <child link="frame_50mm__v1__6__1"/>
+</joint>
+
+<joint name="„« 10" type="fixed">
+  <origin xyz="0.0 0.0035 -0.02" rpy="0 0 0"/>
+  <parent link="frame_60mm__v3__1__1"/>
+  <child link="clasp_v1__9__1"/>
+</joint>
+
+<joint name="„« 11" type="fixed">
+  <origin xyz="0.0 -0.0035 -0.02" rpy="0 0 0"/>
+  <parent link="frame_60mm__v3_1"/>
+  <child link="clasp_v1__8__1"/>
+</joint>
+
+<joint name="„« 12" type="fixed">
+  <origin xyz="-0.0035 -0.5 -0.02" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__1__1"/>
+  <child link="clasp_v1__6__1"/>
+</joint>
+
+<joint name="„« 13" type="fixed">
+  <origin xyz="0.6 0.0035 -0.02" rpy="0 0 0"/>
+  <parent link="frame_60mm__v3__1__1"/>
+  <child link="clasp_v1__7__1"/>
+</joint>
+
+<joint name="„« 14" type="fixed">
+  <origin xyz="0.0035 0.5 -0.02" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__5__1"/>
+  <child link="clasp_v1__10__1"/>
+</joint>
+
+<joint name="„« 15" type="fixed">
+  <origin xyz="0.0035 0.0 -0.02" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__5__1"/>
+  <child link="clasp_v1__2__1"/>
+</joint>
+
+<joint name="„« 16" type="fixed">
+  <origin xyz="0.6 -0.0035 -0.02" rpy="0 0 0"/>
+  <parent link="frame_60mm__v3_1"/>
+  <child link="clasp_v1__4__1"/>
+</joint>
+
+<joint name="„« 17" type="fixed">
+  <origin xyz="-0.3 0.0 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__6__1"/>
+  <child link="clasp_v1__3__1"/>
+</joint>
+
+<joint name="„« 18" type="fixed">
+  <origin xyz="-0.3 0.0 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__6__1"/>
+  <child link="clasp_v1__5__1"/>
+</joint>
+
+<joint name="„« 19" type="fixed">
+  <origin xyz="-0.3 -0.5 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__6__1"/>
+  <child link="clasp_v1__1__1"/>
+</joint>
+
+<joint name="„« 20" type="fixed">
+  <origin xyz="-0.32 -0.5 0.0" rpy="0 0 0"/>
+  <parent link="frame_50mm__v1__6__1"/>
+  <child link="clasp_v1__11__1"/>
+</joint>
+
+</robot>
