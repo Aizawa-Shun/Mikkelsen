@@ -2,18 +2,18 @@ import pybullet as p
 import pybullet_data
 from time import sleep
 import numpy as np
-import torch 
+from utils.xz_sim import constrain_to_xz_plane
 
 class Environment:
-    def __init__(self, config):
+    def __init__(self, config, mode):
         self.robot_path = config['robot_urdf']
         self.frame_path = config['frame_urdf']
         self.gui = config['gui']
         self.initial_position = config['initial_position']
-        self.initial_orientation = config['initial_orientation']
+        self.initial_orientation = p.getQuaternionFromEuler(config['initial_orientation'])  # Convert from Euler to Quaternion
         self.dt = config['dt']
         self.step_dt = config['step_dt']
-
+        self.xz = True if mode=='simulation2d' else False
         self.joints = {
             'left': {
                 'hip_roll': 1,
@@ -34,6 +34,15 @@ class Environment:
         }
         self.legs = list(joint_id for side in self.joints.values() for joint_name, joint_id in side.items() if joint_name != 'foot')
 
+        # Indices to skip (for example, ankle joints)
+        self.exclusion_joint_indices = [self.joints['left']['ankle'], self.joints['right']['ankle']]  # Index of ankle joints of left and right leg
+        if self.xz:
+            # Add hip_roll and hip_yaw joints to the exclusion list
+            self.exclusion_joint_indices.extend([
+                self.joints['left']['hip_roll'], self.joints['right']['hip_roll'],
+                self.joints['left']['hip_yaw'], self.joints['right']['hip_yaw']
+            ])
+
         # Connect to physics engine
         if self.gui: self.physicsClient = p.connect(p.GUI)
         else: self.physicsClient = p.connect(p.DIRECT)
@@ -49,6 +58,8 @@ class Environment:
         self.flame = p.loadURDF(self.frame_path, useFixedBase=True)
 
         self.setup()
+
+        if mode=='simulation_test': self.test_mode()
     
     def setup(self):
         ''' Set up the physics engine and environment '''
@@ -66,8 +77,7 @@ class Environment:
         self.states = {'pos': 0}
 
     def load_robot(self, robot_path):
-        initial_orientation = p.getQuaternionFromEuler(self.initial_orientation)   # Convert from Euler to Quaternion
-        return p.loadURDF(robot_path, basePosition=self.initial_position, baseOrientation=initial_orientation)
+        return p.loadURDF(robot_path, basePosition=self.initial_position, baseOrientation=self.initial_orientation)
     
     def make_closed_link(self, maxForce=10e5):
         constraint_id_19_24 = p.createConstraint(
@@ -102,6 +112,7 @@ class Environment:
     
     def step(self, action):
         p.stepSimulation()
+        if self.xz: constrain_to_xz_plane(self.robot)
         if self.gui: sleep(self.dt)
         self.t += self.dt
         self.interval += 0
@@ -116,25 +127,28 @@ class Environment:
     
     def step_simulation(self):
         p.stepSimulation()
+        if self.xz: constrain_to_xz_plane(self.robot)
         if self.gui: sleep(self.dt)
         self.t += self.dt
         self.interval += self.dt
     
-    def control_by_model(self, action, torque=1.4):
-        # Indices to skip (for example, ankle joints)
-        ankle_joint_indices = [self.joints['left']['ankle'], self.joints['right']['ankle']]  # Index of ankle joints of left and right leg
-
+    def control_by_model(self, action):
         # Control left leg
         for name, index in self.joints['left'].items():
-            if index not in ankle_joint_indices:
-                if name in action['left']:
-                    self.control_leg('left', name, action['left'][name], torque)
+            if index not in self.exclusion_joint_indices:
+                if name in action['left']['angles'] and name in action['left']['torques']:
+                    angle = action['left']['angles'][name]
+                    torque = action['left']['torques'][name]
+                    self.control_leg('left', name, angle, torque)
 
         # Control right leg
         for name, index in self.joints['right'].items():
-            if index not in ankle_joint_indices:
-                if name in action['right']:
-                    self.control_leg('right', name, action['right'][name], torque)
+            if index not in self.exclusion_joint_indices:
+                if name in action['right']['angles'] and name in action['right']['torques']:
+                    angle = action['right']['angles'][name]
+                    torque = action['right']['torques'][name]
+                    self.control_leg('right', name, angle, torque)
+
 
     
     def control_leg(self, side, joint, angle, torque):
@@ -230,6 +244,10 @@ class Environment:
         if contact:
             done = True
         return done
+    
+    def test_mode(self):
+        while True:
+            self.step_simulation()
 
     def disconnect(self):
         p.disconnect()

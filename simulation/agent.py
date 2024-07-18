@@ -7,10 +7,11 @@ import random
 import os
 
 class NeuralNetwork(nn.Module):
-    def __init__(self, input_dim, num_joints, angle_range_size, hidden_layers):
+    def __init__(self, input_dim, num_joints, angle_range_size, torque_range_size, hidden_layers):
         super().__init__()
         self.num_joints = num_joints
         self.angle_range_size = angle_range_size
+        self.torque_range_size = torque_range_size
 
         layers = []
         input_size = input_dim
@@ -20,20 +21,30 @@ class NeuralNetwork(nn.Module):
             layers.append(nn.ReLU())
             input_size = hidden_size
 
-        layers.append(nn.Linear(input_size, self.num_joints * self.angle_range_size))
+        # Set output layer (output angle and torque of each joint)
+        layers.append(nn.Linear(input_size, self.num_joints * (self.angle_range_size + self.torque_range_size)))
         self.network = nn.Sequential(*layers)
     
     def forward(self, x):
         x = self.network(x)
-        return x.view(-1, self.num_joints, self.angle_range_size)
+        # Split output in two
+        angles = x[:, :self.num_joints * self.angle_range_size]
+        torques = x[:, self.num_joints * self.angle_range_size:]
+        # Transform the shape and return
+        angles = angles.view(-1, self.num_joints, self.angle_range_size)
+        torques = torques.view(-1, self.num_joints, self.torque_range_size)
+        return angles, torques
     
 class DQNAgent:
     def __init__(self, input_dim, config):
         self.state_dim = input_dim
 
         self.num_joints  = 8
+
         self.angle_range = np.deg2rad(np.arange(-180, 180, 1))
+        self.torque_range = np.arange(1, 14, 1)
         self.angle_range_size = len(self.angle_range)
+        self.torque_range_size = len(self.torque_range)
         
         self.joints = {
             'left': {
@@ -51,6 +62,7 @@ class DQNAgent:
                 'ankle': 40
             }
         }
+        
         self.targget_update = config['targget_update']
         self.weight_save_path = config['weight_save_path']
         self.target_reward = config['target_reward']
@@ -66,13 +78,13 @@ class DQNAgent:
         self.learning_rate = config['learning_rate']
 
         if config['make_file']:
-            self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range_size, config['hidden_layers']).to(self.device)
+            self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range_size, self.torque_range_size, config['hidden_layers']).to(self.device)
         else:
             try:
                 self.model = torch.load(self.weight_file).to(self.device)
             except FileNotFoundError:
                 print("Weight file not found, initializing a new model.")
-                self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range, config['hidden_layers']).to(self.device)
+                self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range, self.torque_range_size, config['hidden_layers']).to(self.device)
 
         self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
     
@@ -100,29 +112,41 @@ class DQNAgent:
     def act(self):
         '''Decides the action to be taken by the robot based on the neural network's output.'''
         with torch.no_grad():
-            self.output = self.model(self.inputs)
+            self.output_angles, self.output_torques  = self.model(self.inputs)
 
-        # Apply softmax to get probabilities
-        probabilities = F.softmax(self.output, dim=2).detach().cpu().numpy()
+        # Apply softmax to get probabilities for angles and torques
+        angles_probabilities = F.softmax(self.output_angles, dim=2).detach().cpu().numpy()
+        torques_probabilities = F.softmax(self.output_torques, dim=2).detach().cpu().numpy()
 
         left_joint_angles = {}
         right_joint_angles = {}
+        left_joint_torques = {}
+        right_joint_torques = {}
         one_hot_list = []
 
         for side in ['left', 'right']:
             for i, joint in enumerate(self.joints[side].keys()):
                 if joint != 'ankle':  # Skip ankle joints
-                    prob = probabilities[0, i, :]
-
-                    # Normalize to make the sum equal to 1
-                    prob /= np.sum(prob)
-
-                    angle_idx = np.random.choice(len(self.angle_range), p=prob)
+                    # Select angle
+                    angle_prob = angles_probabilities[0, i, :]
+                    if len(self.angle_range) != len(angle_prob):
+                        raise ValueError(f"Size mismatch: angle_range size {len(self.angle_range)}, prob size {len(angle_prob)}")
+                    angle_idx = np.random.choice(len(self.angle_range), p=angle_prob)
                     angle = self.angle_range[angle_idx]
+
+                    # Select torque
+                    torque_prob = torques_probabilities[0, i, :]
+                    if len(torque_prob) != len(self.torque_range):
+                        raise ValueError(f"Size mismatch: torque_range size {len(self.torque_range)}, prob size {len(torque_prob)}")
+                    torque_idx = np.random.choice(len(self.torque_range), p=torque_prob)
+                    torque = self.torque_range[torque_idx]
+
                     if side == 'left':
                         left_joint_angles[joint] = np.round(angle, decimals=2)
+                        left_joint_torques[joint] = np.round(torque, decimals=2)
                     else:
                         right_joint_angles[joint] = np.round(angle, decimals=2)
+                        right_joint_torques[joint] = np.round(torque, decimals=2)
 
                     one_hot = np.zeros(len(self.angle_range))
                     one_hot[angle_idx] = 1
@@ -130,10 +154,9 @@ class DQNAgent:
 
         one_hot = torch.tensor(one_hot_list, dtype=torch.float32)
         action = {
-            'left': left_joint_angles,
-            'right': right_joint_angles
+            'left': {'angles': left_joint_angles, 'torques': left_joint_torques},
+            'right': {'angles': right_joint_angles, 'torques': right_joint_torques}
         }
-        
         return action, one_hot
     
     def learn(self, states, action, reward, one_hot, next_state, done):
@@ -152,17 +175,19 @@ class DQNAgent:
     def store(self, action, reward, one_hot):
         '''Stores information from each step of the learning process.'''
         step_dict = {
-            "output": self.output,
+            "output_angles": self.output_angles,
+            "output_torques": self.output_torques,
             "reward": reward,
             "action": action,
             "one_hot": one_hot
         }
         self.experiences.append(step_dict)
 
-        output_flat = step_dict["output"].flatten()
+        output_angles_flat = step_dict["output_angles"].flatten()
         one_hot_flat = step_dict["one_hot"].flatten()
 
-        self.policy_list.append(torch.dot(output_flat, one_hot_flat).item())
+
+        self.policy_list.append(torch.dot(output_angles_flat, one_hot_flat).item())
         self.reward_list.append(step_dict["reward"])
 
         self.step += 1
