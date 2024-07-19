@@ -1,4 +1,4 @@
-mode: "real_robot"
+mode: "simulation2d"
 
 simulation:
   robot_urdf: "simulation/urdf/bionic_biped_robot_description/urdf/bionic_biped_robot.xacro"
