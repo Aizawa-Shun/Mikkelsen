@@ -1,4 +1,4 @@
-mode: "simulation3d"
+mode: "real_robot"
 
 simulation:
   robot_urdf: "simulation/urdf/bionic_biped_robot_description/urdf/bionic_biped_robot.xacro"
@@ -11,6 +11,8 @@ simulation:
   initial_orientation: [0, 0, 0] # Initial robot orientation
 
 real_robot:
+  run_time: 60
+  time_step: 1.0
 
 dql_agent:
   episodes: 10000000

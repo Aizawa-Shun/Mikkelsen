@@ -1,7 +1,10 @@
 from real_robot import xl430
+from time import sleep
 
-class HardwareController():
-    def __init__(self):
+class HardwareController:
+    def __init__(self, config, mode):
+        self.run_time = config['run_time']
+        self.time_step = config['time_step']
         self.setup()
     
     def setup(self):
@@ -53,3 +56,10 @@ class HardwareController():
                 joint = self.joints[side][joint_name]
                 joint.close_port()
         print('All servo ports closed successfully.')
+    
+    def run(self):
+        steps = self.run_time / self.time_step
+        for step in range(steps):
+            sleep(self.time_step)
+            self.get_angle('left', 'knee')
+
