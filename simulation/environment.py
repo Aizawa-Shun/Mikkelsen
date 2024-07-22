@@ -7,9 +7,10 @@ from utils.camera import Camera
 
 class Environment:
     def __init__(self, config, operation, mode, dimension, target_action):
-        if dimension == '3d':
+        self.dimension = dimension
+        if self.dimension == '3d':
             self.robot_path = config['robot_urdf']
-        elif dimension == '2d':
+        elif self.dimension == '2d':
             self.robot_path = config['robot2d_urdf']
         self.frame_path = config['frame_urdf']
         self.gui = config['gui']
@@ -18,7 +19,7 @@ class Environment:
         self.dt = config['dt']
         self.step_dt = config['step_dt']
 
-        if dimension == '3d':
+        if self.dimension == '3d':
             self.joints = {
                 'left': {
                     'hip_roll': 1,
@@ -37,7 +38,7 @@ class Environment:
                     'foot': 48
                 }
             }
-        elif dimension == '2d':
+        elif self.dimension == '2d':
             self.joints = {
                 'left': {
                     'hip_roll': 4,
@@ -60,7 +61,7 @@ class Environment:
 
         # Indices to skip (for example, ankle joints)
         self.exclusion_joint_indices = [self.joints['left']['ankle'], self.joints['right']['ankle']]  # Index of ankle joints of left and right leg
-        if dimension == '2d':
+        if self.dimension == '2d':
             self.unused_joints = [
                 self.joints['left']['hip_roll'], self.joints['right']['hip_roll'],
                 self.joints['left']['hip_yaw'], self.joints['right']['hip_yaw'],
@@ -82,31 +83,30 @@ class Environment:
 
         # Set gravity
         GRAVITY = -9.8
-        # GRAVITY=-1000
         p.setGravity(0, 0, GRAVITY)
 
         # Load URDF
         self.plane = p.loadURDF('plane.urdf')  # Load floor
         self.flame = p.loadURDF(self.frame_path, useFixedBase=True)
 
-        self.setup(dimension)
+        self.setup()
 
         self.is_check_down = True if operation == 'simulation' else False
 
-        self.camera = Camera(dimension)
+        self.camera = Camera(self.dimension)
         self.input_handler = InputHandler()
         self.input_handler.register_key_action('c', self.toggle_camera)
         self.camera_on = True
 
         if mode=='test': self.test_simulation()
 
-    def setup(self, dimension):
+    def setup(self):
         ''' Set up the physics engine and environment '''
         # Load robot URDF
         self.robot = self.load_robot(self.robot_path)
 
         # Make closed link
-        self.make_closed_link(dimension)
+        self.make_closed_link(self.dimension)
 
         # Simulation time
         self.t = 0
@@ -302,8 +302,7 @@ class Environment:
         
         if contact:
             done = True
-        # return done
-        return False
+        return done
     
     def get_joints_info(self):
         jointNameToId = {} 

@@ -66,27 +66,56 @@ class DQNAgent:
         self.targget_update = config['targget_update']
         self.weight_save_path = config['weight_save_path']
         self.target_reward = config['target_reward']
+        self.checkpoint_interval = config.get('checkpoint_interval', 100) 
+        self.checkpoint_path = config.get('checkpoint_path', 'checkpoint.pth')  
         print(f'[INFO] Target Reward: {self.target_reward}')
+        self.episodes = 0
         self.step = 0
         self.set_model(config)
 
     def set_model(self, config):
-        self.weight_file_name = config['weight_file_path']
-        self.weight_file = os.path.isfile(self.weight_file_name)
         self.device = device('cuda' if cuda.is_available() else 'cpu')
         print(f'[INFO] Using Device: {self.device.type}')
         self.learning_rate = config['learning_rate']
 
-        if config['make_file']:
+        if config['use_checkpoint']:
             self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range_size, self.torque_range_size, config['hidden_layers']).to(self.device)
+            self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
+            self.load_checkpoint(config)
+        elif config['make_file']:
+            self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range_size, self.torque_range_size, config['hidden_layers']).to(self.device)
+            self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
         else:
             try:
+                self.weight_file_name = config['weight_file_path']
+                self.weight_file = os.path.isfile(self.weight_file_name)
                 self.model = torch.load(self.weight_file).to(self.device)
+                self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
             except FileNotFoundError:
-                print("Weight file not found, initializing a new model.")
+                print("Checkpoint is not found, initializing a new model.")
                 self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range, self.torque_range_size, config['hidden_layers']).to(self.device)
-
-        self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
+                self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
+    
+    def save_checkpoint(self, episode):
+        checkpoint = {
+            'model_state_dict': self.model.state_dict(),
+            'optimizer_state_dict': self.opt.state_dict(),
+            'episodes': episode,
+            'step': self.step
+        }
+        torch.save(checkpoint, self.checkpoint_path)
+    
+    def load_checkpoint(self, config):
+        if os.path.isfile(self.checkpoint_path):
+            checkpoint = torch.load(self.checkpoint_path)
+            self.model.load_state_dict(checkpoint['model_state_dict'])
+            self.opt.load_state_dict(checkpoint['optimizer_state_dict'])
+            self.step = checkpoint['step']
+            self.episodes = checkpoint['episodes']
+            print(f'[INFO] Checkpoint loaded from {self.episodes} episodes')
+        else:
+            print('[INFO] No checkpoint found, starting from scratch')
+            self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range, self.torque_range_size, config['hidden_layers']).to(self.device)
     
     def setup(self):
         self.one_hot = None
