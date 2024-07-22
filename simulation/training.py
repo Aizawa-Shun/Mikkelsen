@@ -1,6 +1,7 @@
 from utils.data_saver import DataSaver
 from utils.plotter import Plotter
 from utils.free_memory import free_memory
+from utils.restart import restart_program
 
 data_saver = DataSaver('data/rewards.csv', 'data/joint_angles.csv')
 
@@ -37,9 +38,10 @@ def train_agent(environment, agent, config):
         # Save data in CSV
         data_saver.save_reward(episode, average_reward)
 
-        if episode % agent.checkpoint_interval == 0 and episode != 0:
+        if episode % agent.checkpoint_interval == 0 and episode != 0 and episode != agent.episodes:
             agent.save_checkpoint(episode)
             print(f'[INFO] Checkpoint ({episode} episodes)')
+            restart_program()
         
         if episode % agent.targget_update == 0 and episode != 0:
             agent.update_store_data()
@@ -53,4 +55,3 @@ def train_agent(environment, agent, config):
                 agent.save_weight_file()
                 Plotter.plot_rewards('data/rewards.csv')
                 Plotter.plot_joint_angles('data/joint_angles.csv', episode)
-                break
