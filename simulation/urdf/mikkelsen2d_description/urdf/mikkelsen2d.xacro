@@ -1,0 +1,1435 @@
+<?xml version="1.0" ?>
+<robot name="mikkelsen2d" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find mikkelsen2d_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find mikkelsen2d_description)/urdf/mikkelsen2d.trans" />
+<xacro:include filename="$(find mikkelsen2d_description)/urdf/mikkelsen2d.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.037679135816683924 0.012666740518570965 -0.058008954907279954" rpy="0 0 0"/>
+    <mass value="0.42566063723793834"/>
+    <inertia ixx="0.000885" iyy="0.000452" izz="0.000847" ixy="3.1e-05" iyz="1e-06" ixz="-7e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_hip_roll_xl_2">
+  <inertial>
+    <origin xyz="-0.004986268827101341 -0.014720443125513842 -0.015885149307033275" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="1e-05" iyy="1.1e-05" izz="6e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.023805 0.046388 0.034586" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_roll_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.023805 0.046388 0.034586" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_roll_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_hip_roll_2">
+  <inertial>
+    <origin xyz="0.016632013644877517 0.0012074494935598173 0.0006988114411143054" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.044871 0.062309 0.0632" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_roll_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.044871 0.062309 0.0632" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_roll_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hip_roll_bracket_1">
+  <inertial>
+    <origin xyz="-0.005977579788513737 -0.0004317805669656269 -0.00017873596901929467" rpy="0 0 0"/>
+    <mass value="0.005303897131480488"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.046865 0.062453 0.063259" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_roll_bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.046865 0.062453 0.063259" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_roll_bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_hip_yaw_xl_2">
+  <inertial>
+    <origin xyz="-0.006998679111861819 -0.014828044606016055 -0.006688075872869702" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="6e-06" iyy="1.1e-05" izz="1e-05" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.065267 0.049471 0.057833" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_yaw_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.065267 0.049471 0.057833" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_yaw_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_hip_yaw_2">
+  <inertial>
+    <origin xyz="-0.0007020290665685561 2.278650526520154e-05 0.01667620487029814" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.059566 0.063439 0.080646" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_yaw_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.059566 0.063439 0.080646" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_yaw_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hip_yaw_bracket_1">
+  <inertial>
+    <origin xyz="-0.001846672263714419 -0.00015526908116847427 -0.005510024391643234" rpy="0 0 0"/>
+    <mass value="0.0070036931272659"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="2e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.059506 0.063443 0.082645" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_yaw_bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.059506 0.063443 0.082645" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_yaw_bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_hip_pitch_xl_2">
+  <inertial>
+    <origin xyz="-0.0034402792651398242 -0.005843576841470306 -0.02087676372452038" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="1e-05" iyy="1e-05" izz="8e-06" ixy="-0.0" iyz="0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.040306 0.056066 0.088365" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_pitch_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.040306 0.056066 0.088365" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_pitch_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_hip_pitch_2">
+  <inertial>
+    <origin xyz="0.0010986594270186306 -0.016652648300792397 0.0002431266431453527" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.038503 0.045035 0.11972" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_pitch_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.038503 0.045035 0.11972" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_hip_pitch_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hip_pitch_bracket_1">
+  <inertial>
+    <origin xyz="0.0075391568599490685 -0.018546209284858436 -0.009937387556057525" rpy="0 0 0"/>
+    <mass value="0.005694190208798132"/>
+    <inertia ixx="2e-06" iyy="1e-06" izz="2e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.038647 0.04304 0.119728" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_pitch_bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.038647 0.04304 0.119728" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_pitch_bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_knee_xl_2">
+  <inertial>
+    <origin xyz="0.005665122216174493 -0.00519891645315862 -0.02376072216402675" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="1e-05" iyy="1e-05" izz="8e-06" ixy="-0.0" iyz="0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.020568 0.054821 0.132273" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_knee_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.020568 0.054821 0.132273" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_knee_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_knee_2">
+  <inertial>
+    <origin xyz="0.0010990609083328055 -0.016652987912480627 0.0002431682036394267" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.00966 0.043145 0.166512" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_knee_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.00966 0.043145 0.166512" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_knee_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="knee_r_brecket_1">
+  <inertial>
+    <origin xyz="0.009880315866068638 -0.007544733859495598 -0.0235916808233316" rpy="0 0 0"/>
+    <mass value="0.00786109169007575"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.009804 0.04115 0.16652" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/knee_r_brecket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.009804 0.04115 0.16652" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/knee_r_brecket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="leg_upper_1">
+  <inertial>
+    <origin xyz="-0.0236265091226358 -0.0018811073277059803 -0.044025157686495536" rpy="0 0 0"/>
+    <mass value="0.012719491840295135"/>
+    <inertia ixx="8e-06" iyy="1.1e-05" izz="3e-06" ixy="-0.0" iyz="-0.0" ixz="-4e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.00337 0.052837 0.192104" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/leg_upper_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.00337 0.052837 0.192104" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/leg_upper_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lower_knee_link_2">
+  <inertial>
+    <origin xyz="0.0053390673542219255 0.00037288933482495373 -0.003360765157294665" rpy="0 0 0"/>
+    <mass value="0.010036812614450108"/>
+    <inertia ixx="1e-06" iyy="2e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.043883 0.056599 0.280155" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/lower_knee_link_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.043883 0.056599 0.280155" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/lower_knee_link_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_ankle_xl_2">
+  <inertial>
+    <origin xyz="0.0023787863497140467 -0.14124852441426808 -0.013927891020301064" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="1e-05" iyy="1e-05" izz="8e-06" ixy="-0.0" iyz="0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.026284 -0.086403 0.292492" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_ankle_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.026284 -0.086403 0.292492" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_ankle_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_ankle_2">
+  <inertial>
+    <origin xyz="0.0013006383168733017 -0.016639995225795144 -0.00010822058159531966" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.03152 0.038813 0.296075" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_ankle_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.03152 0.038813 0.296075" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_ankle_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="ankle_link_1_2">
+  <inertial>
+    <origin xyz="-0.01962001103280569 -0.009168861831198263 -0.012464641305166724" rpy="0 0 0"/>
+    <mass value="0.006084906833817184"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.031664 0.036818 0.296083" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/ankle_link_1_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.031664 0.036818 0.296083" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/ankle_link_1_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="ankle_link_2_2">
+  <inertial>
+    <origin xyz="-0.018515664582423236 0.0026780261680551254 -0.011305066027976263" rpy="0 0 0"/>
+    <mass value="0.004445165114646534"/>
+    <inertia ixx="0.0" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.028932 0.07472 0.29593" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/ankle_link_2_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.028932 0.07472 0.29593" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/ankle_link_2_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_bionic_biped_robot_ankle_bar_1">
+  <inertial>
+    <origin xyz="0.0372744305641953 -0.13529755106127062 -0.03135385985193945" rpy="0 0 0"/>
+    <mass value="0.003337002701996774"/>
+    <inertia ixx="2e-06" iyy="3e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.065636 -0.079475 0.312328" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_bionic_biped_robot_ankle_bar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.065636 -0.079475 0.312328" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_bionic_biped_robot_ankle_bar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="R_ankle_bar_parts_1">
+  <inertial>
+    <origin xyz="0.00014366062701038056 -0.0019944275139060913 7.819823202137588e-06" rpy="0 0 0"/>
+    <mass value="0.0001072728227494817"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.007408 0.051407 0.38553" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_ankle_bar_parts_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.007408 0.051407 0.38553" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/R_ankle_bar_parts_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lower_link_1">
+  <inertial>
+    <origin xyz="-0.006464663734562279 -0.006541979758505921 -0.015891229452998867" rpy="0 0 0"/>
+    <mass value="0.008544769707383056"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.003956 0.047921 0.312363" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/lower_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.003956 0.047921 0.312363" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/lower_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="leg_lower_2">
+  <inertial>
+    <origin xyz="0.016577983186343064 0.0010932869739602863 -0.024991954419130824" rpy="0 0 0"/>
+    <mass value="0.007702697584770665"/>
+    <inertia ixx="2e-06" iyy="2e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.009717 0.054388 0.329399" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/leg_lower_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.009717 0.054388 0.329399" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/leg_lower_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="shaft_1">
+  <inertial>
+    <origin xyz="0.011021898892355907 -0.14106983689795666 0.0010968431772507836" rpy="0 0 0"/>
+    <mass value="5.79273242847201e-05"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.010002 -0.088703 0.378464" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/shaft_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="-0.010002 -0.088703 0.378464" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/shaft_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="foot_1">
+  <inertial>
+    <origin xyz="0.009247631945305756 -0.006387365319854822 -0.00883166378665401" rpy="0 0 0"/>
+    <mass value="0.009360295877442892"/>
+    <inertia ixx="1e-06" iyy="3e-06" izz="3e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.020521 0.045385 0.377395" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/foot_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.020521 0.045385 0.377395" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/foot_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_hip_roll_xl_2">
+  <inertial>
+    <origin xyz="-0.007035658746133058 0.013705057031099574 -0.016000767229874098" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="1e-05" iyy="1.1e-05" izz="6e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.032432 -0.073301 0.03507" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_roll_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.032432 -0.073301 0.03507" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_roll_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_hip_roll_2">
+  <inertial>
+    <origin xyz="0.016632623725845765 0.001207949650173304 0.0006991935182734527" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.055548 -0.085805 0.0638" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_roll_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.055548 -0.085805 0.0638" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_roll_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hip_roll_bracket_2">
+  <inertial>
+    <origin xyz="-0.005976969707545278 -0.0004312804103520085 -0.00017835389186021677" rpy="0 0 0"/>
+    <mass value="0.005303897131480488"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.057542 -0.085661 0.063859" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_roll_bracket_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.057542 -0.085661 0.063859" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_roll_bracket_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_hip_yow_xl_2">
+  <inertial>
+    <origin xyz="-0.019724069030893326 0.16171245555059727 -0.007402693795710839" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="6e-06" iyy="1.1e-05" izz="1e-05" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.063218 0.077897 0.057718" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_yow_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.063218 0.077897 0.057718" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_yow_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_hip_yow_2">
+  <inertial>
+    <origin xyz="-0.0007024189855999036 2.328666187906281e-05 0.016675586947457022" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.070242 -0.084675 0.081245" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_yow_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.070242 -0.084675 0.081245" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_yow_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hip_yaw_bracket_2">
+  <inertial>
+    <origin xyz="-0.0018470621827454958 -0.00015576892455435032 -0.0055096423144844475" rpy="0 0 0"/>
+    <mass value="0.0070036931272659"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="2e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.070182 -0.084672 0.083245" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_yaw_bracket_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.070182 -0.084672 0.083245" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_yaw_bracket_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_hip_pitch_xl_2">
+  <inertial>
+    <origin xyz="-0.014889626704910668 0.15323649091201427 -0.02151001718098544" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="1e-05" iyy="1e-05" izz="8e-06" ixy="-0.0" iyz="0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.039444 0.068035 0.088317" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_pitch_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.039444 0.068035 0.088317" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_pitch_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_hip_pitch_2">
+  <inertial>
+    <origin xyz="-0.0013111930908787511 0.016638969103919543 0.00010176466340976187" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.046735 -0.069168 0.120182" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_pitch_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.046735 -0.069168 0.120182" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_hip_pitch_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hip_pitch_bracket_2">
+  <inertial>
+    <origin xyz="0.004806766940918042 0.01935529087175604 -0.01009100547889738" rpy="0 0 0"/>
+    <mass value="0.005694190208798132"/>
+    <inertia ixx="2e-06" iyy="1e-06" izz="2e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.046591 -0.067173 0.120174" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_pitch_bracket_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.046591 -0.067173 0.120174" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/hip_pitch_bracket_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_knee_xl_2">
+  <inertial>
+    <origin xyz="-0.0057852252235959314 0.15388115130032537 -0.024393975620490616" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="1e-05" iyy="1e-05" izz="8e-06" ixy="-0.0" iyz="0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.019705 0.06679 0.132225" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_knee_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.019705 0.06679 0.132225" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_knee_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_knee_2">
+  <inertial>
+    <origin xyz="-0.001310791609564127 0.01663862949223087 0.00010180622390471017" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.017892 -0.071058 0.166974" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_knee_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.017892 -0.071058 0.166974" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_knee_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="knee_l_bracket_1">
+  <inertial>
+    <origin xyz="0.008709497182516516 0.008692950647949602 -0.02365759624485586" rpy="0 0 0"/>
+    <mass value="0.007861091690075749"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.017748 -0.069063 0.166966" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/knee_l_bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.017748 -0.069063 0.166966" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/knee_l_bracket_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="leg_upper_2">
+  <inertial>
+    <origin xyz="-0.0236272655807404 -0.0018808597100555963 -0.044025283804643156" rpy="0 0 0"/>
+    <mass value="0.012719491840295135"/>
+    <inertia ixx="8e-06" iyy="1.1e-05" izz="3e-06" ixy="-0.0" iyz="-0.0" ixz="-4e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.006371 -0.082311 0.192651" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/leg_upper_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.006371 -0.082311 0.192651" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/leg_upper_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lower_knee_link_1">
+  <inertial>
+    <origin xyz="-0.004402689103882022 0.13552113695247434 -0.003907891275441444" rpy="0 0 0"/>
+    <mass value="0.010036812614450108"/>
+    <inertia ixx="1e-06" iyy="2e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.043883 0.056599 0.280155" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/lower_knee_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.043883 0.056599 0.280155" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/lower_knee_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_ankle_xl_2">
+  <inertial>
+    <origin xyz="-0.008170174994778033 0.0048628108902959155 -0.014529247093322983" rpy="0 0 0"/>
+    <mass value="0.040973661549071165"/>
+    <inertia ixx="1e-05" iyy="1e-05" izz="8e-06" ixy="-0.0" iyz="0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.025421 -0.074434 0.292444" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_ankle_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.025421 -0.074434 0.292444" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_ankle_xl_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_ankle_2">
+  <inertial>
+    <origin xyz="-0.0010883992681275378 0.016653874969239903 -0.00023658974408985456" rpy="0 0 0"/>
+    <mass value="0.001436423594975712"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.038818 -0.062423 0.296485" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_ankle_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="0.038818 -0.062423 0.296485" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_ankle_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="ankle_link_2_1">
+  <inertial>
+    <origin xyz="-0.017933407461730076 -0.005396774732084456 -0.011272941800434477" rpy="0 0 0"/>
+    <mass value="0.004445165114646534"/>
+    <inertia ixx="0.0" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.041406 -0.09833 0.29663" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/ankle_link_2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.041406 -0.09833 0.29663" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/ankle_link_2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="ankle_link_1_1">
+  <inertial>
+    <origin xyz="-0.020724599914864222 0.006159546314823412 -0.012526380836080875" rpy="0 0 0"/>
+    <mass value="0.006084906833817184"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.038674 -0.060428 0.296477" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/ankle_link_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.038674 -0.060428 0.296477" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/ankle_link_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_bionic_biped_robot_ankle_bar_v2_1">
+  <inertial>
+    <origin xyz="0.026973185994146963 -0.00019155226833608707 -0.03237520514495967" rpy="0 0 0"/>
+    <mass value="0.0020522771844998615"/>
+    <inertia ixx="1e-06" iyy="2e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.065636 -0.079475 0.312328" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_bionic_biped_robot_ankle_bar_v2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.065636 -0.079475 0.312328" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_bionic_biped_robot_ankle_bar_v2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lower_link_2">
+  <inertial>
+    <origin xyz="-0.007327420192664854 0.0054272678591428675 -0.015939355571145786" rpy="0 0 0"/>
+    <mass value="0.008544769707383056"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.012835 -0.075258 0.312862" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/lower_link_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.012835 -0.075258 0.312862" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/lower_link_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="leg_lower_1">
+  <inertial>
+    <origin xyz="0.00683581112231717 0.13624225155348746 -0.025538614757582068" rpy="0 0 0"/>
+    <mass value="0.007702697584770665"/>
+    <inertia ixx="2e-06" iyy="2e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.010565 0.054452 0.329925" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/leg_lower_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.010565 0.054452 0.329925" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/leg_lower_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="shaft_4">
+  <inertial>
+    <origin xyz="-0.0012796887777527313 0.005920844643437256 -0.000549351381604779" rpy="0 0 0"/>
+    <mass value="5.79273242847201e-05"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.010865 -0.076734 0.378416" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/shaft_4.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="-0.010865 -0.076734 0.378416" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/shaft_4.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="foot_2">
+  <inertial>
+    <origin xyz="-0.0031969557246431836 0.14259831622155128 -0.010485858345410604" rpy="0 0 0"/>
+    <mass value="0.009360295877442892"/>
+    <inertia ixx="1e-06" iyy="3e-06" izz="3e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.021527 0.059349 0.377339" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/foot_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.021527 0.059349 0.377339" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/foot_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="L_ankle_bar_parts_v1_1">
+  <inertial>
+    <origin xyz="-0.00014394221523743225 0.0019945724362831485 -8.321499878949368e-06" rpy="0 0 0"/>
+    <mass value="0.0005178915489442998"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.003339 -0.079651 0.387157" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_ankle_bar_parts_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="pa_11_nylon_hp_1130_eos_p_396_3d_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.003339 -0.079651 0.387157" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/L_ankle_bar_parts_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="shaft_3">
+  <inertial>
+    <origin xyz="-0.011438466576369044 0.13502171160794899 -0.0015986852578384614" rpy="0 0 0"/>
+    <mass value="5.79273242847201e-05"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.005881 0.053482 0.383199" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/shaft_3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="-0.005881 0.053482 0.383199" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/shaft_3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="shaft_5">
+  <inertial>
+    <origin xyz="1.210936678560856e-07 3.00665498886854e-08 -4.906991806774563e-07" rpy="0 0 0"/>
+    <mass value="5.79273242847201e-05"/>
+    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.005881 0.053482 0.383199" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/shaft_5.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name=""/>
+  </visual>
+  <collision>
+    <origin xyz="-0.005881 0.053482 0.383199" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://mikkelsen2d_description/meshes/shaft_5.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+
+<link name="world">
+  <inertial>
+    <mass value="0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+  </inertial>
+</link>
+<link name="z_prismatic">
+  <inertial>
+    <mass value="100"/>
+    <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </inertial>
+</link>
+<joint name="z_to_world" type="prismatic">
+  <parent link="world"/>
+  <child link="z_prismatic"/>
+  <axis xyz="0 0 1"/>
+  <limit effort="0.0" lower="1" upper="-1" velocity="1000.0"/>
+  <origin rpy="0 0 0" xyz="0 0 0"/>
+</joint>
+<link name="x_prismatic">
+  <inertial>
+    <mass value="0.01"/>
+    <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </inertial>
+</link>
+<joint name="x_to_z" type="prismatic">
+  <parent link="z_prismatic"/>
+  <child link="x_prismatic"/>
+  <axis xyz="1 0 0"/>
+  <limit effort="0.0" lower="1" upper="-1" velocity="1000.0"/>
+  <origin rpy="0 0 0" xyz="0 0 0"/>
+</joint>
+<joint name="base_to_x" type="continuous">
+  <parent link="x_prismatic"/>
+  <child link="base_link"/>
+  <axis xyz="0 0 1"/>
+  <origin rpy="0 0 0" xyz="0 0 0"/>
+</joint>
+
+
+
+<joint name="���� 226" type="fixed">
+  <origin xyz="-0.023805 -0.046388 -0.034586" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="R_hip_roll_xl_2"/>
+</joint>
+
+<joint name="���� 227" type="fixed">
+  <origin xyz="-0.021066 -0.015921 -0.028614" rpy="0 0 0"/>
+  <parent link="R_hip_roll_xl_2"/>
+  <child link="R_hip_roll_2"/>
+</joint>
+
+<joint name="���� 228" type="fixed">
+  <origin xyz="-0.001994 -0.000144 -5.9e-05" rpy="0 0 0"/>
+  <parent link="R_hip_roll_2"/>
+  <child link="hip_roll_bracket_1"/>
+</joint>
+
+<joint name="���� 229" type="fixed">
+  <origin xyz="-0.018402 0.012982 0.005426" rpy="0 0 0"/>
+  <parent link="hip_roll_bracket_1"/>
+  <child link="R_hip_yaw_xl_2"/>
+</joint>
+
+<joint name="���� 230" type="fixed">
+  <origin xyz="0.005701 -0.013968 -0.022813" rpy="0 0 0"/>
+  <parent link="R_hip_yaw_xl_2"/>
+  <child link="R_hip_yaw_2"/>
+</joint>
+
+<joint name="���� 231" type="fixed">
+  <origin xyz="6e-05 -4e-06 -0.001999" rpy="0 0 0"/>
+  <parent link="R_hip_yaw_2"/>
+  <child link="hip_yaw_bracket_1"/>
+</joint>
+
+<joint name="���� 232" type="fixed">
+  <origin xyz="0.0192 0.007377 -0.00572" rpy="0 0 0"/>
+  <parent link="hip_yaw_bracket_1"/>
+  <child link="R_hip_pitch_xl_2"/>
+</joint>
+
+<joint name="��] 233" type="continuous">
+  <origin xyz="0.001803 0.011031 -0.031355" rpy="0 0 0"/>
+  <parent link="R_hip_pitch_xl_2"/>
+  <child link="R_hip_pitch_2"/>
+  <axis xyz="0.071895 -0.997404 0.004038"/>
+</joint>
+
+<joint name="���� 234" type="fixed">
+  <origin xyz="-0.000144 0.001995 -8e-06" rpy="0 0 0"/>
+  <parent link="R_hip_pitch_2"/>
+  <child link="hip_pitch_bracket_1"/>
+</joint>
+
+<joint name="���� 235" type="fixed">
+  <origin xyz="0.018079 -0.011781 -0.012545" rpy="0 0 0"/>
+  <parent link="hip_pitch_bracket_1"/>
+  <child link="R_knee_xl_2"/>
+</joint>
+
+<joint name="��] 236" type="continuous">
+  <origin xyz="0.010908 0.011676 -0.034239" rpy="0 0 0"/>
+  <parent link="R_knee_xl_2"/>
+  <child link="R_knee_2"/>
+  <axis xyz="0.071895 -0.997404 0.004038"/>
+</joint>
+
+<joint name="���� 237" type="fixed">
+  <origin xyz="-0.000144 0.001995 -8e-06" rpy="0 0 0"/>
+  <parent link="R_knee_2"/>
+  <child link="knee_r_brecket_1"/>
+</joint>
+
+<joint name="���� 238" type="fixed">
+  <origin xyz="0.013174 -0.011687 -0.025584" rpy="0 0 0"/>
+  <parent link="knee_r_brecket_1"/>
+  <child link="leg_upper_1"/>
+</joint>
+
+<joint name="���� 239" type="fixed">
+  <origin xyz="-0.047253 -0.003762 -0.088051" rpy="0 0 0"/>
+  <parent link="leg_upper_1"/>
+  <child link="lower_knee_link_2"/>
+</joint>
+
+<joint name="���� 240" type="fixed">
+  <origin xyz="0.017599 0.143002 -0.012337" rpy="0 0 0"/>
+  <parent link="lower_knee_link_2"/>
+  <child link="R_ankle_xl_2"/>
+</joint>
+
+<joint name="��] 241" type="continuous">
+  <origin xyz="-0.005236 -0.125216 -0.003583" rpy="0 0 0"/>
+  <parent link="R_ankle_xl_2"/>
+  <child link="R_ankle_2"/>
+  <axis xyz="0.071895 -0.997404 0.004038"/>
+</joint>
+
+<joint name="���� 242" type="fixed">
+  <origin xyz="-0.000144 0.001995 -8e-06" rpy="0 0 0"/>
+  <parent link="R_ankle_2"/>
+  <child link="ankle_link_1_2"/>
+</joint>
+
+<joint name="���� 243" type="fixed">
+  <origin xyz="0.002588 -0.035907 0.000145" rpy="0 0 0"/>
+  <parent link="R_ankle_2"/>
+  <child link="ankle_link_2_2"/>
+</joint>
+
+<joint name="��] 244" type="continuous">
+  <origin xyz="-0.036704 0.154195 -0.016398" rpy="0 0 0"/>
+  <parent link="ankle_link_2_2"/>
+  <child link="R_bionic_biped_robot_ankle_bar_1"/>
+  <axis xyz="0.071895 -0.997404 0.004038"/>
+</joint>
+
+<joint name="��] 245" type="continuous">
+  <origin xyz="0.073044 -0.130882 -0.073202" rpy="0 0 0"/>
+  <parent link="R_bionic_biped_robot_ankle_bar_1"/>
+  <child link="R_ankle_bar_parts_1"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+</joint>
+
+<joint name="���� 246" type="fixed">
+  <origin xyz="0.022328 -0.134324 -0.019871" rpy="0 0 0"/>
+  <parent link="R_ankle_xl_2"/>
+  <child link="lower_link_1"/>
+</joint>
+
+<joint name="���� 247" type="fixed">
+  <origin xyz="-0.005761 -0.006467 -0.017036" rpy="0 0 0"/>
+  <parent link="lower_link_1"/>
+  <child link="leg_lower_2"/>
+</joint>
+
+<joint name="���� 248" type="fixed">
+  <origin xyz="0.019719 0.143091 -0.049065" rpy="0 0 0"/>
+  <parent link="leg_lower_2"/>
+  <child link="shaft_1"/>
+</joint>
+
+<joint name="��] 249" type="continuous">
+  <origin xyz="0.010519 -0.134088 0.001069" rpy="0 0 0"/>
+  <parent link="shaft_1"/>
+  <child link="foot_1"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+</joint>
+
+<joint name="���� 270" type="fixed">
+  <origin xyz="-0.032432 0.073301 -0.03507" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="L_hip_roll_xl_2"/>
+</joint>
+
+<joint name="���� 271" type="fixed">
+  <origin xyz="-0.023116 0.012504 -0.02873" rpy="0 0 0"/>
+  <parent link="L_hip_roll_xl_2"/>
+  <child link="L_hip_roll_2"/>
+</joint>
+
+<joint name="���� 272" type="fixed">
+  <origin xyz="-0.001994 -0.000144 -5.9e-05" rpy="0 0 0"/>
+  <parent link="L_hip_roll_2"/>
+  <child link="hip_roll_bracket_2"/>
+</joint>
+
+<joint name="���� 273" type="fixed">
+  <origin xyz="-0.005676 -0.163558 0.006141" rpy="0 0 0"/>
+  <parent link="hip_roll_bracket_2"/>
+  <child link="L_hip_yow_xl_2"/>
+</joint>
+
+<joint name="���� 274" type="fixed">
+  <origin xyz="-0.007024 0.162572 -0.023527" rpy="0 0 0"/>
+  <parent link="L_hip_yow_xl_2"/>
+  <child link="L_hip_yow_2"/>
+</joint>
+
+<joint name="���� 275" type="fixed">
+  <origin xyz="6e-05 -3e-06 -0.002" rpy="0 0 0"/>
+  <parent link="L_hip_yow_2"/>
+  <child link="hip_yaw_bracket_2"/>
+</joint>
+
+<joint name="���� 276" type="fixed">
+  <origin xyz="0.030738 -0.152707 -0.005072" rpy="0 0 0"/>
+  <parent link="hip_yaw_bracket_2"/>
+  <child link="L_hip_pitch_xl_2"/>
+</joint>
+
+<joint name="��] 277" type="continuous">
+  <origin xyz="-0.007291 0.137203 -0.031865" rpy="0 0 0"/>
+  <parent link="L_hip_pitch_xl_2"/>
+  <child link="L_hip_pitch_2"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+</joint>
+
+<joint name="���� 278" type="fixed">
+  <origin xyz="0.000144 -0.001995 8e-06" rpy="0 0 0"/>
+  <parent link="L_hip_pitch_2"/>
+  <child link="hip_pitch_bracket_2"/>
+</joint>
+
+<joint name="���� 279" type="fixed">
+  <origin xyz="0.026886 -0.133963 -0.012051" rpy="0 0 0"/>
+  <parent link="hip_pitch_bracket_2"/>
+  <child link="L_knee_xl_2"/>
+</joint>
+
+<joint name="��] 280" type="continuous">
+  <origin xyz="0.001813 0.137848 -0.034749" rpy="0 0 0"/>
+  <parent link="L_knee_xl_2"/>
+  <child link="L_knee_2"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+</joint>
+
+<joint name="���� 281" type="fixed">
+  <origin xyz="0.000144 -0.001995 8e-06" rpy="0 0 0"/>
+  <parent link="L_knee_2"/>
+  <child link="knee_l_bracket_1"/>
+</joint>
+
+<joint name="���� 282" type="fixed">
+  <origin xyz="0.011377 0.013248 -0.025685" rpy="0 0 0"/>
+  <parent link="knee_l_bracket_1"/>
+  <child link="leg_upper_2"/>
+</joint>
+
+<joint name="���� 283" type="fixed">
+  <origin xyz="-0.037512 -0.13891 -0.087504" rpy="0 0 0"/>
+  <parent link="leg_upper_2"/>
+  <child link="lower_knee_link_1"/>
+</joint>
+
+<joint name="���� 284" type="fixed">
+  <origin xyz="0.018462 0.131033 -0.012289" rpy="0 0 0"/>
+  <parent link="lower_knee_link_1"/>
+  <child link="L_ankle_xl_2"/>
+</joint>
+
+<joint name="��] 285" type="continuous">
+  <origin xyz="-0.013397 -0.012011 -0.004041" rpy="0 0 0"/>
+  <parent link="L_ankle_xl_2"/>
+  <child link="L_ankle_2"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+</joint>
+
+<joint name="���� 286" type="fixed">
+  <origin xyz="-0.002588 0.035907 -0.000145" rpy="0 0 0"/>
+  <parent link="L_ankle_2"/>
+  <child link="ankle_link_2_1"/>
+</joint>
+
+<joint name="���� 287" type="fixed">
+  <origin xyz="0.000144 -0.001995 8e-06" rpy="0 0 0"/>
+  <parent link="L_ankle_2"/>
+  <child link="ankle_link_1_1"/>
+</joint>
+
+<joint name="��] 288" type="continuous">
+  <origin xyz="-0.02423 -0.018855 -0.015698" rpy="0 0 0"/>
+  <parent link="ankle_link_2_1"/>
+  <child link="L_bionic_biped_robot_ankle_bar_v2_1"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+</joint>
+
+<joint name="���� 289" type="fixed">
+  <origin xyz="0.012586 0.000824 -0.020418" rpy="0 0 0"/>
+  <parent link="L_ankle_xl_2"/>
+  <child link="lower_link_2"/>
+</joint>
+
+<joint name="���� 290" type="fixed">
+  <origin xyz="0.00227 -0.12971 -0.017063" rpy="0 0 0"/>
+  <parent link="lower_link_2"/>
+  <child link="leg_lower_1"/>
+</joint>
+
+<joint name="���� 291" type="fixed">
+  <origin xyz="0.02143 0.131186 -0.048491" rpy="0 0 0"/>
+  <parent link="leg_lower_1"/>
+  <child link="shaft_4"/>
+</joint>
+
+<joint name="��] 292" type="continuous">
+  <origin xyz="0.010662 -0.136083 0.001077" rpy="0 0 0"/>
+  <parent link="shaft_4"/>
+  <child link="foot_2"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+</joint>
+
+<joint name="��] 294" type="continuous">
+  <origin xyz="0.062297 0.000176 -0.074829" rpy="0 0 0"/>
+  <parent link="L_bionic_biped_robot_ankle_bar_v2_1"/>
+  <child link="L_ankle_bar_parts_v1_1"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+</joint>
+
+<joint name="���� 295" type="fixed">
+  <origin xyz="-0.015646 0.005867 -0.00586" rpy="0 0 0"/>
+  <parent link="foot_2"/>
+  <child link="shaft_3"/>
+</joint>
+
+<joint name="���� 296" type="fixed">
+  <origin xyz="-0.01464 -0.008097 -0.005804" rpy="0 0 0"/>
+  <parent link="foot_1"/>
+  <child link="shaft_5"/>
+</joint>
+
+</robot>

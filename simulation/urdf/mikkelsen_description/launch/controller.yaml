@@ -1,0 +1,71 @@
+mikkelsen_controller:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controllers --------------------------------------
+  ‰ñ“] 227_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 227
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 230_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 230
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 233_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 233
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 236_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 236
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 241_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 241
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 244_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 244
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 245_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 245
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 249_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 249
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 271_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 271
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 274_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 274
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 277_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 277
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 280_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 280
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 285_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 285
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 288_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 288
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 292_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 292
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  ‰ñ“] 294_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ‰ñ“] 294
+    pid: {p: 100.0, i: 0.01, d: 10.0}

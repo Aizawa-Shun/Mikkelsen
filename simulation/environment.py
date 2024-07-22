@@ -2,47 +2,77 @@ import pybullet as p
 import pybullet_data
 from time import sleep
 import numpy as np
-from utils.xz_sim import constrain_to_xz_plane
+from utils.keyboard import InputHandler
+from utils.camera import Camera
 
 class Environment:
-    def __init__(self, config, mode):
-        self.robot_path = config['robot_urdf']
+    def __init__(self, config, operation, mode, dimension, target_action):
+        if dimension == '3d':
+            self.robot_path = config['robot_urdf']
+        elif dimension == '2d':
+            self.robot_path = config['robot2d_urdf']
         self.frame_path = config['frame_urdf']
         self.gui = config['gui']
         self.initial_position = config['initial_position']
         self.initial_orientation = p.getQuaternionFromEuler(config['initial_orientation'])  # Convert from Euler to Quaternion
         self.dt = config['dt']
         self.step_dt = config['step_dt']
-        self.xz = True if mode=='simulation2d' else False
-        self.joints = {
-            'left': {
-                'hip_roll': 1,
-                'hip_yaw': 4,
-                'hip_pitch': 7,
-                'knee': 10,
-                'ankle': 15,
-                'foot': 23
-            },
-            'right': {
-                'hip_roll': 26,
-                'hip_yaw': 29,
-                'hip_pitch': 32,
-                'knee': 35,
-                'ankle': 40,
-                'foot': 48
+
+        if dimension == '3d':
+            self.joints = {
+                'left': {
+                    'hip_roll': 1,
+                    'hip_yaw': 4,
+                    'hip_pitch': 7,
+                    'knee': 10,
+                    'ankle': 15,
+                    'foot': 23
+                },
+                'right': {
+                    'hip_roll': 26,
+                    'hip_yaw': 29,
+                    'hip_pitch': 32,
+                    'knee': 35,
+                    'ankle': 40,
+                    'foot': 48
+                }
             }
-        }
+        elif dimension == '2d':
+            self.joints = {
+                'left': {
+                    'hip_roll': 4,
+                    'hip_yaw': 7,
+                    'hip_pitch': 10,
+                    'knee': 13,
+                    'ankle': 18,
+                    'foot': 26
+                },
+                'right': {
+                    'hip_roll': 29,
+                    'hip_yaw': 32,
+                    'hip_pitch': 35,
+                    'knee': 38,
+                    'ankle': 43,
+                    'foot': 51
+                }
+            }
         self.legs = list(joint_id for side in self.joints.values() for joint_name, joint_id in side.items() if joint_name != 'foot')
 
         # Indices to skip (for example, ankle joints)
         self.exclusion_joint_indices = [self.joints['left']['ankle'], self.joints['right']['ankle']]  # Index of ankle joints of left and right leg
-        if self.xz:
-            # Add hip_roll and hip_yaw joints to the exclusion list
-            self.exclusion_joint_indices.extend([
+        if dimension == '2d':
+            self.unused_joints = [
                 self.joints['left']['hip_roll'], self.joints['right']['hip_roll'],
-                self.joints['left']['hip_yaw'], self.joints['right']['hip_yaw']
-            ])
+                self.joints['left']['hip_yaw'], self.joints['right']['hip_yaw'],
+                self.joints['left']['hip_pitch'], self.joints['right']['hip_pitch']
+            ]
+            # Add hip_roll and hip_yaw joints to the exclusion list
+            self.exclusion_joint_indices.extend(self.unused_joints)
+        
+        # Target of movement by learning
+        self.target_action = target_action
 
+        
         # Connect to physics engine
         if self.gui: self.physicsClient = p.connect(p.GUI)
         else: self.physicsClient = p.connect(p.DIRECT)
@@ -51,27 +81,36 @@ class Environment:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         # Set gravity
-        p.setGravity(0, 0, -9.8)
+        GRAVITY = -9.8
+        # GRAVITY=-1000
+        p.setGravity(0, 0, GRAVITY)
 
         # Load URDF
         self.plane = p.loadURDF('plane.urdf')  # Load floor
         self.flame = p.loadURDF(self.frame_path, useFixedBase=True)
 
-        self.setup()
+        self.setup(dimension)
 
-        if mode=='simulation_test': self.test_mode()
-    
-    def setup(self):
+        self.is_check_down = True if operation == 'simulation' else False
+
+        self.camera = Camera(dimension)
+        self.input_handler = InputHandler()
+        self.input_handler.register_key_action('c', self.toggle_camera)
+        self.camera_on = True
+
+        if mode=='test': self.test_simulation()
+
+    def setup(self, dimension):
         ''' Set up the physics engine and environment '''
-        # Load robot's URDF
+        # Load robot URDF
         self.robot = self.load_robot(self.robot_path)
 
         # Make closed link
-        self.make_closed_link()
+        self.make_closed_link(dimension)
 
         # Simulation time
         self.t = 0
-        self.interval = 0
+       
 
         # Dictionary to store the robot's state
         self.states = {'pos': 0}
@@ -79,30 +118,52 @@ class Environment:
     def load_robot(self, robot_path):
         return p.loadURDF(robot_path, basePosition=self.initial_position, baseOrientation=self.initial_orientation)
     
-    def make_closed_link(self, maxForce=10e5):
-        constraint_id_19_24 = p.createConstraint(
-            parentBodyUniqueId=self.robot,
-            parentLinkIndex=24,
-            childBodyUniqueId=self.robot,
-            childLinkIndex=19,
-            jointType=p.JOINT_POINT2POINT, 
-            jointAxis=[0, 0, 1],
-            parentFramePosition=[0, 0, 0],
-            childFramePosition=[0, 0, 0]
-        )
-        p.changeConstraint(constraint_id_19_24, maxForce=maxForce)
-
-        constraint_id_43_49 = p.createConstraint(
-            parentBodyUniqueId=self.robot,
-            parentLinkIndex=43,
-            childBodyUniqueId=self.robot,
-            childLinkIndex=49,
-            jointType=p.JOINT_POINT2POINT, 
-            jointAxis=[0, 0, 1],
-            parentFramePosition=[0, 0, 0],
-            childFramePosition=[0, 0, 0]
-        )
-        p.changeConstraint(constraint_id_43_49, maxForce=maxForce)
+    def make_closed_link(self, dimension, maxForce=10e5):
+        if dimension == '3d':
+            constraint_id_19_24 = p.createConstraint(
+                parentBodyUniqueId=self.robot,
+                parentLinkIndex=24,
+                childBodyUniqueId=self.robot,
+                childLinkIndex=19,
+                jointType=p.JOINT_POINT2POINT, 
+                jointAxis=[0, 0, 1],
+                parentFramePosition=[0, 0, 0],
+                childFramePosition=[0, 0, 0]
+            )
+            p.changeConstraint(constraint_id_19_24, maxForce=maxForce)
+            constraint_id_43_49 = p.createConstraint(
+                parentBodyUniqueId=self.robot,
+                parentLinkIndex=43,
+                childBodyUniqueId=self.robot,
+                childLinkIndex=49,
+                jointType=p.JOINT_POINT2POINT, 
+                jointAxis=[0, 0, 1],
+                parentFramePosition=[0, 0, 0],
+                childFramePosition=[0, 0, 0]
+            )
+            p.changeConstraint(constraint_id_43_49, maxForce=maxForce)
+        elif dimension == '2d':
+            constraint_id_22_27 = p.createConstraint(
+                parentBodyUniqueId=self.robot,
+                parentLinkIndex=27,
+                childBodyUniqueId=self.robot,
+                childLinkIndex=22,
+                jointType=p.JOINT_POINT2POINT, 
+                jointAxis=[0, 0, 1],
+                parentFramePosition=[0, 0, 0],
+                childFramePosition=[0, 0, 0]
+            )
+            constraint_id_46_52 = p.createConstraint(
+                parentBodyUniqueId=self.robot,
+                parentLinkIndex=46,
+                childBodyUniqueId=self.robot,
+                childLinkIndex=52,
+                jointType=p.JOINT_POINT2POINT, 
+                jointAxis=[0, 0, 1],
+                parentFramePosition=[0, 0, 0],
+                childFramePosition=[0, 0, 0]
+            )
+            p.changeConstraint(constraint_id_46_52, maxForce=maxForce)
     
 
     def reset(self):
@@ -110,27 +171,27 @@ class Environment:
         p.removeBody(self.robot)
         self.setup()
     
-    def step(self, action):
+    def step(self, action=None):
         p.stepSimulation()
-        if self.xz: constrain_to_xz_plane(self.robot)
-        if self.gui: sleep(self.dt)
+        if self.gui: 
+            sleep(self.dt)
+            self.input_handler.check_input()
+            self.camera.set(self.robot, self.camera_on)
         self.t += self.dt
-        self.interval += 0
 
-        self.control_by_model(action)
-
-        self.get_observation()
-        reward = self.calculate_reward()
-        done = self.check_done()
-
-        return  reward, done
-    
-    def step_simulation(self):
-        p.stepSimulation()
-        if self.xz: constrain_to_xz_plane(self.robot)
-        if self.gui: sleep(self.dt)
-        self.t += self.dt
-        self.interval += self.dt
+        if action != None:
+            self.control_by_model(action)
+            self.get_observation()
+            if self.target_action == 'stationary':
+                reward = self.reward_stationary()
+            done = self.check_done()
+            return  reward, done
+        else:
+            if self.is_check_down:
+                done = self.check_done()
+                return done
+            else:
+                pass
     
     def control_by_model(self, action):
         # Control left leg
@@ -149,8 +210,6 @@ class Environment:
                     torque = action['right']['torques'][name]
                     self.control_leg('right', name, angle, torque)
 
-
-    
     def control_leg(self, side, joint, angle, torque):
         """
         Function to control the robot's legs based on the specified parameters.
@@ -188,7 +247,7 @@ class Environment:
         self.states['total_force'] = np.sum(np.abs(self.states['joint_torques']))
         self.states['total_velocity'] = np.sum(np.abs(self.states['joint_velocities']))
     
-    def calculate_reward(self):
+    def reward_stationary(self):
         '''
         Calculate the reward for maintaining a stable upright posture.
 
@@ -243,11 +302,23 @@ class Environment:
         
         if contact:
             done = True
-        return done
+        # return done
+        return False
     
-    def test_mode(self):
+    def get_joints_info(self):
+        jointNameToId = {} 
+        for i in range(p.getNumJoints(self.robot)):
+            jointInfo = p.getJointInfo(self.robot, i)
+            jointNameToId[jointInfo[1].decode('UTF-8')] = jointInfo[0]
+        return jointNameToId
+    
+    def toggle_camera(self):
+        self.camera_on = not self.camera_on
+        print(f"[INFO] Camera {'ON' if self.camera_on else 'OFF'}")
+            
+    def test_simulation(self):
         while True:
-            self.step_simulation()
+            self.step()
 
     def disconnect(self):
         p.disconnect()

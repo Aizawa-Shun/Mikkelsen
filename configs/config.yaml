@@ -1,7 +1,12 @@
-mode: "simulation2d"
+operation: "simulation"
+mode: "train"
+target_action: "stationary"
+algorithm: "dql"
+dimension: "3d"
 
 simulation:
-  robot_urdf: "simulation/urdf/bionic_biped_robot_description/urdf/bionic_biped_robot.xacro"
+  robot_urdf: "simulation/urdf/mikkelsen_description/urdf/mikkelsen.xacro"
+  robot2d_urdf: "simulation/urdf/mikkelsen2d_description/urdf/mikkelsen2d.xacro"
   frame_urdf: "simulation/urdf/frames_description/urdf/frames.xacro"
   episodes: 1000
   dt: 0.01
@@ -17,6 +22,7 @@ real_robot:
 dql_agent:
   episodes: 10000000
   target_reward: 10
+  learning_interval: 0.5
   targget_update: 10
   input_size: 20
   output_dim: 8

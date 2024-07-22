@@ -1,0 +1,9 @@
+<launch>
+
+<rosparam file="$(find mikkelsen2d_description)/launch/controller.yaml" command="load"/>
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="mikkelsen2d" args="‰ñ“] 233_position_controller ‰ñ“] 236_position_controller ‰ñ“] 241_position_controller ‰ñ“] 244_position_controller ‰ñ“] 245_position_controller ‰ñ“] 249_position_controller ‰ñ“] 277_position_controller ‰ñ“] 280_position_controller ‰ñ“] 285_position_controller ‰ñ“] 288_position_controller ‰ñ“] 292_position_controller ‰ñ“] 294_position_controller joint_state_controller "/>
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+  <remap from="/joint_states" to="/mikkelsen2d/joint_states"/>
+</node>
+
+</launch>
