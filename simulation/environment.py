@@ -153,6 +153,7 @@ class Environment:
                 parentFramePosition=[0, 0, 0],
                 childFramePosition=[0, 0, 0]
             )
+            p.changeConstraint(constraint_id_22_27, maxForce=maxForce)
             constraint_id_46_52 = p.createConstraint(
                 parentBodyUniqueId=self.robot,
                 parentLinkIndex=46,
@@ -286,20 +287,26 @@ class Environment:
     def check_done(self):
         done = False
         contact = None
-        for joint_id in range(0, 5):
-            if p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=joint_id):
-                contact = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=joint_id)
-        if contact == None:
-            for joint_id in range(25, 30):
+        if self.dimension == '3d':
+            for joint_id in range(0, 5):
                 if p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=joint_id):
                     contact = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=joint_id)
-        if contact == None:
-            if p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=self.joints['left']['hip_yaw']):
-                contact = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=self.joints['right']['hip_yaw'])
-        if contact == None:
-            if p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=-1):
-                contact = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=-1)
-        
+            if contact == None:
+                for joint_id in range(25, 30):
+                    if p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=joint_id):
+                        contact = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=joint_id)
+            if contact == None:
+                if p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=self.joints['left']['hip_yaw']):
+                    contact = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=self.joints['left']['hip_yaw'])
+            if contact == None:
+                if p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=-1):
+                    contact = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=-1)
+        elif self.dimension == '2d':
+            if contact == None:
+                body_id = 4
+                pos_z = p.getLinkState(self.robot, body_id)[4][2]
+                if pos_z < 0.1:
+                    contact = True
         if contact:
             done = True
         return done

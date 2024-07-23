@@ -2,7 +2,7 @@ operation: "simulation"
 mode: "train"
 target_action: "stationary"
 algorithm: "dql"
-dimension: "3d"
+dimension: "2d"
 
 simulation:
   gui: False
@@ -28,7 +28,7 @@ dql_agent:
   targget_update: 10
   input_size: 20
   output_dim: 8
-  hidden_layers: [64, 32, 32]
+  hidden_layers: [256, 128, 128, 64, 64, 32]
   learning_rate: 0.01
   weight_save_path: "simulation/weight/dql_weight.pth"
   checkpoint_interval: 100

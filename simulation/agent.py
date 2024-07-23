@@ -36,7 +36,7 @@ class NeuralNetwork(nn.Module):
         return angles, torques
     
 class DQNAgent:
-    def __init__(self, input_dim, config):
+    def __init__(self, input_dim, config, dimension):
         self.state_dim = input_dim
 
         self.num_joints  = 8
@@ -67,7 +67,7 @@ class DQNAgent:
         self.weight_save_path = config['weight_save_path']
         self.target_reward = config['target_reward']
         self.checkpoint_interval = config.get('checkpoint_interval', 100) 
-        self.checkpoint_path = config.get('checkpoint_path', 'checkpoint.pth')  
+        self.checkpoint_path = config.get('checkpoint_path', f'checkpoint{dimension}.pth')
         print(f'[INFO] Target Reward: {self.target_reward}')
         self.episodes = 0
         self.step = 0
