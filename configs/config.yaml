@@ -22,7 +22,7 @@ real_robot:
 dql_agent:
   use_checkpoint: False
   make_file: True
-  episodes: 1000000
+  episodes: 10
   target_reward: 100
   learning_interval: 0.5
   targget_update: 10
