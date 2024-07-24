@@ -28,7 +28,7 @@ dql_agent:
   targget_update: 10
   input_size: 10
   output_dim: 8
-  hidden_layers: [256, 128, 128, 64, 64, 32]
+  hidden_layers: [64, 64, 64, 64, 32]
   learning_rate: 0.01
   weight_save_path: "simulation/weight/dql_weight.pth"
   checkpoint_interval: 100

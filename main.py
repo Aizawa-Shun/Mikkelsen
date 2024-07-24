@@ -1,7 +1,7 @@
 from utils.config import load_config
 from simulation.environment import Environment
-from simulation.agent import DQNAgent
-from simulation.training import train_agent
+from simulation.dql.agent import DQNAgent
+from simulation.dql.training import train_agent
 from real_robot.controller import HardwareController
 
 def run_train_dql(config, operation, mode, dimension, target_action):
@@ -9,6 +9,9 @@ def run_train_dql(config, operation, mode, dimension, target_action):
     agent = DQNAgent(config['dql_agent']['input_size'], config['dql_agent'], dimension)
     flag = train_agent(environment, agent, config['dql_agent'])
     environment.disconnect()
+
+def run_footstep():
+    pass
 
 def run_test_simulation(config, operation, mode, dimension, target_action):
     environment = Environment(config['simulation'], operation, mode, dimension, target_action)
@@ -34,6 +37,8 @@ def main():
                 pass
         elif mode == 'execution':
             pass
+        elif mode == 'footstep':
+            run_footstep()
         elif mode == 'test':
             run_test_simulation(config, operation, mode, dimension, target_action)
     elif operation == 'real_robot':
