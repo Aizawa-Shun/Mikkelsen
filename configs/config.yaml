@@ -22,11 +22,11 @@ real_robot:
 dql_agent:
   use_checkpoint: False
   make_file: True
-  episodes: 10
+  episodes: 100
   target_reward: 100
   learning_interval: 0.5
   targget_update: 10
-  input_size: 20
+  input_size: 10
   output_dim: 8
   hidden_layers: [256, 128, 128, 64, 64, 32]
   learning_rate: 0.01

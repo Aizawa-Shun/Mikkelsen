@@ -198,20 +198,21 @@ class Environment:
         # Control left leg
         for name, index in self.joints['left'].items():
             if index not in self.exclusion_joint_indices:
-                if name in action['left']['angles'] and name in action['left']['torques']:
+                if name in action['left']['angles']:
+                # if name in action['left']['angles'] and name in action['left']['torques']:
                     angle = action['left']['angles'][name]
-                    torque = action['left']['torques'][name]
-                    self.control_leg('left', name, angle, torque)
+                    # torque = action['left']['torques'][name]
+                    self.control_leg('left', name, angle)
 
         # Control right leg
         for name, index in self.joints['right'].items():
             if index not in self.exclusion_joint_indices:
-                if name in action['right']['angles'] and name in action['right']['torques']:
+                if name in action['right']['angles']:
                     angle = action['right']['angles'][name]
-                    torque = action['right']['torques'][name]
-                    self.control_leg('right', name, angle, torque)
+                    # torque = action['right']['torques'][name]
+                    self.control_leg('right', name, angle)
 
-    def control_leg(self, side, joint, angle, torque):
+    def control_leg(self, side, joint, angle, torque=1.4):
         """
         Function to control the robot's legs based on the specified parameters.
         :param side: String indicating left or right leg ('left' or 'right').
