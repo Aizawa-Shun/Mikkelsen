@@ -20,16 +20,16 @@ real_robot:
   time_step: 1.0
 
 dql_agent:
-  use_checkpoint: False
+  use_checkpoint: True
   make_file: True
-  episodes: 100
+  episodes: 100000000
   target_reward: 100
   learning_interval: 0.5
   targget_update: 10
-  input_size: 10
+  input_size: 20
   output_dim: 8
   hidden_layers: [64, 64, 64, 64, 32]
   learning_rate: 0.01
-  weight_save_path: "simulation/weight/dql_weight.pth"
+  weight_save_path: "simulation/dql/weight/dql_weight.pth"
   checkpoint_interval: 100
-  checkpoint_path: "simulation/checkpoint/checkpoint.pth"
+  checkpoint_path: "simulation/dql/checkpoint/checkpoint.pth"

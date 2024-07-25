@@ -64,7 +64,6 @@ class DQNAgent:
         }
         
         self.targget_update = config['targget_update']
-        self.weight_save_path = config['weight_save_path']
         self.target_reward = config['target_reward']
         self.checkpoint_interval = config.get('checkpoint_interval', 100) 
         self.checkpoint_path = config.get('checkpoint_path', f'checkpoint{dimension}.pth')
@@ -79,8 +78,6 @@ class DQNAgent:
         self.learning_rate = config['learning_rate']
 
         if config['use_checkpoint']:
-            self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range_size, self.torque_range_size, config['hidden_layers']).to(self.device)
-            self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
             self.load_checkpoint(config)
         elif config['make_file']:
             self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range_size, self.torque_range_size, config['hidden_layers']).to(self.device)
@@ -96,26 +93,25 @@ class DQNAgent:
                 self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range, self.torque_range_size, config['hidden_layers']).to(self.device)
                 self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
     
-    def save_checkpoint(self, episode):
+    def save_checkpoint(self, episodes):
         checkpoint = {
-            'model_state_dict': self.model.state_dict(),
-            'optimizer_state_dict': self.opt.state_dict(),
-            'episodes': episode,
-            'step': self.step
+            'model': self.model,
+            'opt': self.opt,
+            'episodes': episodes,
         }
         torch.save(checkpoint, self.checkpoint_path)
     
     def load_checkpoint(self, config):
         if os.path.isfile(self.checkpoint_path):
             checkpoint = torch.load(self.checkpoint_path)
-            self.model.load_state_dict(checkpoint['model_state_dict'])
-            self.opt.load_state_dict(checkpoint['optimizer_state_dict'])
-            self.step = checkpoint['step']
+            self.model = checkpoint['model']
+            self.opt = checkpoint['opt']
             self.episodes = checkpoint['episodes']
             print(f'[INFO] Checkpoint loaded from {self.episodes} episodes')
         else:
             print('[INFO] No checkpoint found, starting from scratch')
-            self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range, self.torque_range_size, config['hidden_layers']).to(self.device)
+            self.model = NeuralNetwork(self.state_dim, self.num_joints, self.angle_range_size, self.torque_range_size, config['hidden_layers']).to(self.device)
+            self.opt = optim.Adam(self.model.parameters(), lr=self.learning_rate)
     
     def setup(self):
         self.one_hot = None
@@ -188,7 +184,7 @@ class DQNAgent:
         }
         return action, one_hot
     
-    def learn(self, states, action, reward, one_hot, next_state, done):
+    def learn(self, states, action, reward, one_hot):
         # Get joint states (angles and torques)
         joint_positions = np.array(states['joint_positions'])
         joint_torques = np.array(states['joint_torques'])        
@@ -256,5 +252,5 @@ class DQNAgent:
         self.opt.step()
         self.opt.zero_grad()
     
-    def save_weight_file(self):
-        torch.save(self.model, self.weight_save_path)
+    def save_weight_file(self, path):
+        torch.save(self.model, path)

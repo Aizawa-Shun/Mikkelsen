@@ -8,6 +8,7 @@ data_saver = DataSaver('data/rewards.csv', 'data/joint_angles.csv')
 def train_agent(environment, agent, config):
     target_reward = config['target_reward']
     learning_interval = config['learning_interval']
+    save_path = config['weight_save_path']
     count = learning_interval
     
     for episode in range(agent.episodes, config['episodes']):
@@ -24,7 +25,7 @@ def train_agent(environment, agent, config):
                 action, one_hot = agent.act()
                 reward, done = environment.step(action)
                 next_state = environment.states
-                agent.learn(states, action, reward, one_hot, next_state, done)
+                agent.learn(states, action, reward, one_hot)
                 states = next_state
 
                 data_saver.save_joint_angles(episode, environment.t, environment.states['joint_positions'])
@@ -48,10 +49,9 @@ def train_agent(environment, agent, config):
             agent.update_policy()
             average_reward = agent.calculate_average_reward()
             print(f'[{episode} episode] average reward: {average_reward:.2f}')
-            free_memory()
         
             # Finish learning
             if average_reward >= target_reward:
-                agent.save_weight_file()
+                agent.save_weight_file(save_path)
                 Plotter.plot_rewards('data/rewards.csv')
                 Plotter.plot_joint_angles('data/joint_angles.csv', episode)
