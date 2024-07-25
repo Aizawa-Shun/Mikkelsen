@@ -166,7 +166,6 @@ class Environment:
                 childFramePosition=[0, 0, 0]
             )
             p.changeConstraint(constraint_id_46_52, maxForce=maxForce)
-    
 
     def reset(self):
         ''' Reset the environment to the initial state '''
@@ -238,6 +237,8 @@ class Environment:
 
         self.states['pos'] = pos
         self.states['angle'] = euler_angles
+
+        self.states['base_velocity'] = (np.array(pos) - np.array(self.states['pre_pos'])) / self.dt
         
         self.states['left_foot_contact'] = p.getContactPoints(self.robot, -1, self.joints['left']['foot'])
         self.states['right_foot_contact'] = p.getContactPoints(self.robot, -1, self.joints['right']['foot'])

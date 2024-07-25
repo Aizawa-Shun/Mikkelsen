@@ -26,7 +26,7 @@ dql_agent:
   target_reward: 100
   learning_interval: 0.5
   targget_update: 10
-  input_size: 20
+  input_size: 23
   output_dim: 8
   hidden_layers: [64, 64, 64, 64, 32]
   learning_rate: 0.01

@@ -126,10 +126,11 @@ class DQNAgent:
     def first_states(self, states):
         # Get joint states (angles and torques)
         joint_positions = np.array(states['joint_positions'])
-        joint_torques = np.array(states['joint_torques'])        
+        joint_torques = np.array(states['joint_torques'])      
+        base_velocity = np.array(states['base_velocity']) 
 
         # Combine joint angles and torques into one input vector
-        self.inputs = np.concatenate((joint_positions, joint_torques))
+        self.inputs = np.concatenate((joint_positions, joint_torques, base_velocity))
 
         # Processes the data for input into the neural network
         self.inputs = torch.tensor(self.inputs, requires_grad=True).float().unsqueeze(0).to(self.device)
@@ -187,10 +188,11 @@ class DQNAgent:
     def learn(self, states, action, reward, one_hot):
         # Get joint states (angles and torques)
         joint_positions = np.array(states['joint_positions'])
-        joint_torques = np.array(states['joint_torques'])        
+        joint_torques = np.array(states['joint_torques'])   
+        base_velocity = np.array(states['base_velocity'])      
 
         # Combine joint angles and torques into one input vector
-        self.inputs = np.concatenate((joint_positions, joint_torques))
+        self.inputs = np.concatenate((joint_positions, joint_torques, base_velocity))
 
         # Processes the data for input into the neural network
         self.inputs = torch.tensor(self.inputs, requires_grad=True).float().unsqueeze(0).to(self.device)

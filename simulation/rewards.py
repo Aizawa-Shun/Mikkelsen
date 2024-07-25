@@ -16,19 +16,19 @@ def reward_stationary(states):
         # Reward based on Center of Mass (CoM) height
         target_height = 0.30
         height_diff = abs(states['pos'][2] - target_height)
-        reward += max(0, 1 - height_diff)
+        reward += max(0, 1 - height_diff) * 1.5
 
         # Reward based on lateral position
-        lateral_position = abs(states['pos'][0]) + abs(states['pos'][1])
-        reward += max(0, 1 - lateral_position)
+        # lateral_position = abs(states['pos'][0]) + abs(states['pos'][1])
+        # reward += max(0, 1 - lateral_position)
 
         # Penalties based on overall power, speed, and energy consumption
-        reward -= states['total_force'] * 0.05     # Penalties based on total force
+        # reward -= states['total_force'] * 0.05     # Penalties based on total force
         # reward -= self.states['total_velocity'] * 0.05  # Penalties based on total velocity
 
         # Check if both feet are in contact with the ground
         if states['left_foot_contact'] and states['right_foot_contact']:
-            reward += 3.5
+            reward += 5.0
         else:
             reward -= 1.0
 
