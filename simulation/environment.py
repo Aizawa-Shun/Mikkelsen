@@ -120,52 +120,35 @@ class Environment:
         return p.loadURDF(robot_path, basePosition=self.initial_position, baseOrientation=self.initial_orientation)
     
     def make_closed_link(self, dimension, maxForce=10e5):
-        if dimension == '3d':
-            constraint_id_19_24 = p.createConstraint(
-                parentBodyUniqueId=self.robot,
-                parentLinkIndex=24,
-                childBodyUniqueId=self.robot,
-                childLinkIndex=19,
-                jointType=p.JOINT_POINT2POINT, 
-                jointAxis=[0, 0, 1],
-                parentFramePosition=[0, 0, 0],
-                childFramePosition=[0, 0, 0]
+        parent_index1, child_index1, parent_index2, child_index2 = 24, 19, 43, 49
+        if dimension == '2d':
+            parent_index1, child_index1, parent_index2, child_index2 = (
+                parent_index1 + 3, child_index1 + 3, parent_index2 + 3, child_index2 + 3
             )
-            p.changeConstraint(constraint_id_19_24, maxForce=maxForce)
-            constraint_id_43_49 = p.createConstraint(
-                parentBodyUniqueId=self.robot,
-                parentLinkIndex=43,
-                childBodyUniqueId=self.robot,
-                childLinkIndex=49,
-                jointType=p.JOINT_POINT2POINT, 
-                jointAxis=[0, 0, 1],
-                parentFramePosition=[0, 0, 0],
-                childFramePosition=[0, 0, 0]
-            )
-            p.changeConstraint(constraint_id_43_49, maxForce=maxForce)
-        elif dimension == '2d':
-            constraint_id_22_27 = p.createConstraint(
-                parentBodyUniqueId=self.robot,
-                parentLinkIndex=27,
-                childBodyUniqueId=self.robot,
-                childLinkIndex=22,
-                jointType=p.JOINT_POINT2POINT, 
-                jointAxis=[0, 0, 1],
-                parentFramePosition=[0, 0, 0],
-                childFramePosition=[0, 0, 0]
-            )
-            p.changeConstraint(constraint_id_22_27, maxForce=maxForce)
-            constraint_id_46_52 = p.createConstraint(
-                parentBodyUniqueId=self.robot,
-                parentLinkIndex=46,
-                childBodyUniqueId=self.robot,
-                childLinkIndex=52,
-                jointType=p.JOINT_POINT2POINT, 
-                jointAxis=[0, 0, 1],
-                parentFramePosition=[0, 0, 0],
-                childFramePosition=[0, 0, 0]
-            )
-            p.changeConstraint(constraint_id_46_52, maxForce=maxForce)
+
+        constraint_id_19_24 = p.createConstraint(
+            parentBodyUniqueId=self.robot,
+            parentLinkIndex=parent_index1,
+            childBodyUniqueId=self.robot,
+            childLinkIndex=child_index1,
+            jointType=p.JOINT_POINT2POINT, 
+            jointAxis=[0, 0, 1],
+            parentFramePosition=[0, 0, 0],
+            childFramePosition=[0, 0, 0]
+        )
+        p.changeConstraint(constraint_id_19_24, maxForce=maxForce)
+        constraint_id_43_49 = p.createConstraint(
+            parentBodyUniqueId=self.robot,
+            parentLinkIndex=parent_index2,
+            childBodyUniqueId=self.robot,
+            childLinkIndex=child_index2,
+            jointType=p.JOINT_POINT2POINT, 
+            jointAxis=[0, 0, 1],
+            parentFramePosition=[0, 0, 0],
+            childFramePosition=[0, 0, 0]
+        )
+        p.changeConstraint(constraint_id_43_49, maxForce=maxForce)
+
 
     def reset(self):
         ''' Reset the environment to the initial state '''

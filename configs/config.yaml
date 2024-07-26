@@ -24,12 +24,12 @@ dql_agent:
   make_file: True
   episodes: 100000000
   target_reward: 100
+  learning_rate: 0.01
   learning_interval: 0.5
   targget_update: 10
   input_size: 23
   output_dim: 8
   hidden_layers: [64, 64, 64, 64, 32]
-  learning_rate: 0.01
+  checkpoint_interval: 20
   weight_save_path: "simulation/dql/weight/dql_weight.pth"
-  checkpoint_interval: 100
   checkpoint_path: "simulation/dql/checkpoint/checkpoint.pth"
