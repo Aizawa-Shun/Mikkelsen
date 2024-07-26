@@ -14,4 +14,3 @@ def restart_program():
     else:  # Linux or other UNIX-like systems
         script_path = os.path.abspath(os.path.join(os.getcwd(), 'restart.sh'))
         subprocess.Popen([script_path])
-        
