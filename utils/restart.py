@@ -8,12 +8,10 @@ def restart_program():
     print('[INFO] Restart')
     time.sleep(3)
 
-
-    # Windows
-    # Running the bat file
-    # subprocess.Popen([fr"{os.getcwd()}\\restart.bat"])
-
-    # Linux
-    script_path = os.path.abspath(os.path.join(os.getcwd(), 'restart.sh'))
-    subprocess.Popen([script_path])
-    os._exit(0)
+    if os.name == 'nt':  # Windows
+        # Running the bat file
+        subprocess.Popen([fr"{os.getcwd()}\\restart.bat"])
+    else:  # Linux or other UNIX-like systems
+        script_path = os.path.abspath(os.path.join(os.getcwd(), 'restart.sh'))
+        subprocess.Popen([script_path])
+        
