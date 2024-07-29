@@ -10,6 +10,7 @@ def train_agent(environment, agent, config):
     learning_interval = config['learning_interval']
     save_path = config['weight_save_path']
     count = learning_interval
+    save_data = config['save_data']
     
     for episode in range(agent.episodes, config['episodes']):
         if episode != 0: states = environment.reset()
@@ -28,7 +29,8 @@ def train_agent(environment, agent, config):
                 agent.learn(states, action, reward, one_hot)
                 states = next_state
 
-                data_saver.save_joint_angles(episode, environment.t, environment.states['joint_positions'])
+                if save_data:
+                    data_saver.save_joint_angles(episode, environment.t, environment.states['joint_positions'])
                 count = 0
             else:
                 done = environment.step()
@@ -37,7 +39,8 @@ def train_agent(environment, agent, config):
         # Calculate average reward
         average_reward = agent.calculate_average_reward()
         # Save data in CSV
-        data_saver.save_reward(episode, average_reward)
+        if save_data:
+            data_saver.save_reward(episode, average_reward)
 
         if episode % agent.checkpoint_interval == 0 and episode != 0 and episode != agent.episodes:
             agent.save_checkpoint(episode)
@@ -53,5 +56,6 @@ def train_agent(environment, agent, config):
             # Finish learning
             if average_reward >= target_reward:
                 agent.save_weight_file(save_path)
-                Plotter.plot_rewards('data/rewards.csv')
-                Plotter.plot_joint_angles('data/joint_angles.csv', episode)
+                if save_data:
+                    Plotter.plot_rewards('data/rewards.csv')
+                    Plotter.plot_joint_angles('data/joint_angles.csv', episode)

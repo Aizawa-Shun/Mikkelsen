@@ -33,3 +33,4 @@ dql_agent:
   checkpoint_interval: 20
   weight_save_path: "simulation/dql/weight/dql_weight.pth"
   checkpoint_path: "simulation/dql/checkpoint/checkpoint.pth"
+  save_data: False
