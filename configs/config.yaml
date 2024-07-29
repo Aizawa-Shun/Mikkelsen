@@ -6,10 +6,10 @@ dimension: "2d"
 
 simulation:
   gui: True
+  sim_time: 10
   robot_urdf: "simulation/urdf/mikkelsen_description/urdf/mikkelsen.xacro"
   robot2d_urdf: "simulation/urdf/mikkelsen2d_description/urdf/mikkelsen2d.xacro"
   frame_urdf: "simulation/urdf/frames_description/urdf/frames.xacro"
-  episodes: 1000
   dt: 0.01
   step_dt: 1.0
   initial_position: [0, 0, 0.35] # Initial robot position
@@ -22,7 +22,7 @@ real_robot:
 dql_agent:
   use_checkpoint: True
   make_file: True
-  episodes: 100000000
+  episodes: 10000000
   target_reward: 100
   learning_rate: 0.01
   learning_interval: 0.5
@@ -30,7 +30,7 @@ dql_agent:
   input_size: 23
   output_dim: 8
   hidden_layers: [64, 64, 64, 64, 32]
-  checkpoint_interval: 20
+  checkpoint_interval: 100
   weight_save_path: "simulation/dql/weight/dql_weight.pth"
   checkpoint_path: "simulation/dql/checkpoint/checkpoint.pth"
   save_data: False

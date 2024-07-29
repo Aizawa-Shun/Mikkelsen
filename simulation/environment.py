@@ -17,6 +17,7 @@ class Environment:
         self.gui = config['gui']
         self.initial_position = config['initial_position']
         self.initial_orientation = p.getQuaternionFromEuler(config['initial_orientation'])  # Convert from Euler to Quaternion
+        self.sim_time = config['sim_time']
         self.dt = config['dt']
         self.step_dt = config['step_dt']
 
@@ -237,6 +238,10 @@ class Environment:
     def check_done(self):
         done = False
         contact = None
+        if self.sim_time <= self.t:
+            done = True
+        return done
+
         if self.dimension == '3d':
             for joint_id in range(0, 5):
                 if p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=joint_id):
@@ -257,7 +262,7 @@ class Environment:
                 pos_z = p.getLinkState(self.robot, body_id)[4][2]
                 if pos_z < 0.1:
                     contact = True
-        if contact
+        if contact:
             done = True
         return done
     

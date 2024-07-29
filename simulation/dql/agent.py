@@ -62,6 +62,11 @@ class DQNAgent:
                 'ankle': 40
             }
         }
+
+        if dimension == '2d':
+            for side in self.joints:
+                for joint in self.joints[side]:
+                    self.joints[side][joint] += 3
         
         self.targget_update = config['targget_update']
         self.target_reward = config['target_reward']

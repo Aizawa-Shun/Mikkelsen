@@ -16,7 +16,7 @@ def reward_stationary(states):
         # Reward based on Center of Mass (CoM) height
         target_height = 0.30
         height_diff = abs(states['pos'][2] - target_height)
-        reward += max(0, 1 - height_diff) * 1.5
+        reward += max(0, 1 - height_diff) * 5
 
         # Reward based on lateral position
         # lateral_position = abs(states['pos'][0]) + abs(states['pos'][1])
