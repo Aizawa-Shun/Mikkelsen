@@ -257,7 +257,7 @@ class Environment:
                 pos_z = p.getLinkState(self.robot, body_id)[4][2]
                 if pos_z < 0.1:
                     contact = True
-        if contact:
+        if contact
             done = True
         return done
     
