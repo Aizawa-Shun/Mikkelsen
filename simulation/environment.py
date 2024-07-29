@@ -74,7 +74,6 @@ class Environment:
         
         # Target of movement by learning
         self.target_action = target_action
-
         
         # Connect to physics engine
         if self.gui: self.physicsClient = p.connect(p.GUI)
@@ -113,7 +112,6 @@ class Environment:
         # Simulation time
         self.t = 0
        
-
         # Dictionary to store the robot's state
         self.states = {'pos': 0}
 
@@ -126,7 +124,6 @@ class Environment:
             parent_index1, child_index1, parent_index2, child_index2 = (
                 parent_index1 + 3, child_index1 + 3, parent_index2 + 3, child_index2 + 3
             )
-
         constraint_id_19_24 = p.createConstraint(
             parentBodyUniqueId=self.robot,
             parentLinkIndex=parent_index1,
@@ -149,8 +146,7 @@ class Environment:
             childFramePosition=[0, 0, 0]
         )
         p.changeConstraint(constraint_id_43_49, maxForce=maxForce)
-
-
+    
     def reset(self):
         ''' Reset the environment to the initial state '''
         p.removeBody(self.robot)
@@ -238,9 +234,6 @@ class Environment:
     def check_done(self):
         done = False
         contact = None
-        if self.sim_time <= self.t:
-            done = True
-        return done
 
         if self.dimension == '3d':
             for joint_id in range(0, 5):
@@ -262,7 +255,7 @@ class Environment:
                 pos_z = p.getLinkState(self.robot, body_id)[4][2]
                 if pos_z < 0.1:
                     contact = True
-        if contact:
+        if contact or self.sim_time <= self.t:
             done = True
         return done
     

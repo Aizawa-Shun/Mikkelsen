@@ -41,7 +41,7 @@ class DQNAgent:
 
         self.num_joints  = 8
 
-        self.angle_range = np.deg2rad(np.arange(-180, 180, 1))
+        self.angle_range = np.deg2rad(np.arange(-45, 45, 1))
         self.torque_range = np.arange(1, 14, 1)
         self.angle_range_size = len(self.angle_range)
         self.torque_range_size = len(self.torque_range)

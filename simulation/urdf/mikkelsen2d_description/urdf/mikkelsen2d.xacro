@@ -4,6 +4,51 @@
 <xacro:include filename="$(find mikkelsen2d_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find mikkelsen2d_description)/urdf/mikkelsen2d.trans" />
 <xacro:include filename="$(find mikkelsen2d_description)/urdf/mikkelsen2d.gazebo" />
+
+
+<link name="world">
+  <inertial>
+    <mass value="0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+  </inertial>
+</link>
+<link name="z_prismatic">
+  <inertial>
+    <mass value="40"/>
+    <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </inertial>
+</link>
+<joint name="z_to_world" type="prismatic">
+  <parent link="world"/>
+  <child link="z_prismatic"/>
+  <axis xyz="0 0 1"/>
+  <limit effort="0.0" lower="1" upper="-1" velocity="1000.0"/>
+  <origin rpy="0 0 0" xyz="0 0 0"/>
+</joint>
+<link name="x_prismatic">
+  <inertial>
+    <mass value="0.01"/>
+    <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </inertial>
+</link>
+<joint name="x_to_z" type="prismatic">
+  <parent link="z_prismatic"/>
+  <child link="x_prismatic"/>
+  <axis xyz="1 0 0"/>
+  <limit effort="0.0" lower="1" upper="-1" velocity="1000.0"/>
+  <origin rpy="0 0 0" xyz="0 0 0"/>
+</joint>
+<joint name="base_to_x" type="continuous">
+  <parent link="x_prismatic"/>
+  <child link="base_link"/>
+  <axis xyz="0 0 1"/>
+  <origin rpy="0 0 0" xyz="0 0 0"/>
+</joint>
+
+
 <link name="base_link">
   <inertial>
     <origin xyz="-0.037679135816683924 0.012666740518570965 -0.058008954907279954" rpy="0 0 0"/>
@@ -1074,49 +1119,6 @@
     </geometry>
   </collision>
 </link>
-
-
-<link name="world">
-  <inertial>
-    <mass value="0"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-  </inertial>
-</link>
-<link name="z_prismatic">
-  <inertial>
-    <mass value="100"/>
-    <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-  </inertial>
-</link>
-<joint name="z_to_world" type="prismatic">
-  <parent link="world"/>
-  <child link="z_prismatic"/>
-  <axis xyz="0 0 1"/>
-  <limit effort="0.0" lower="1" upper="-1" velocity="1000.0"/>
-  <origin rpy="0 0 0" xyz="0 0 0"/>
-</joint>
-<link name="x_prismatic">
-  <inertial>
-    <mass value="0.01"/>
-    <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-  </inertial>
-</link>
-<joint name="x_to_z" type="prismatic">
-  <parent link="z_prismatic"/>
-  <child link="x_prismatic"/>
-  <axis xyz="1 0 0"/>
-  <limit effort="0.0" lower="1" upper="-1" velocity="1000.0"/>
-  <origin rpy="0 0 0" xyz="0 0 0"/>
-</joint>
-<joint name="base_to_x" type="continuous">
-  <parent link="x_prismatic"/>
-  <child link="base_link"/>
-  <axis xyz="0 0 1"/>
-  <origin rpy="0 0 0" xyz="0 0 0"/>
-</joint>
 
 
 
