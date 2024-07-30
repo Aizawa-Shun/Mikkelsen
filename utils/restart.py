@@ -14,3 +14,6 @@ def restart_program():
     else:  # Linux or other UNIX-like systems
         script_path = os.path.abspath(os.path.join(os.getcwd(), 'utils/restart.sh'))
         subprocess.Popen([script_path])
+    
+    # Terminate the current Python process
+    sys.exit()

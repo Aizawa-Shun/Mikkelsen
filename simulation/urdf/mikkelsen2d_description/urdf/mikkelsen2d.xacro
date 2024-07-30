@@ -15,7 +15,7 @@
 </link>
 <link name="z_prismatic">
   <inertial>
-    <mass value="40"/>
+    <mass value="35"/>
     <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </inertial>

@@ -21,44 +21,30 @@ class Environment:
         self.dt = config['dt']
         self.step_dt = config['step_dt']
 
-        if self.dimension == '3d':
-            self.joints = {
-                'left': {
-                    'hip_roll': 1,
-                    'hip_yaw': 4,
-                    'hip_pitch': 7,
-                    'knee': 10,
-                    'ankle': 15,
-                    'foot': 23
-                },
-                'right': {
-                    'hip_roll': 26,
-                    'hip_yaw': 29,
-                    'hip_pitch': 32,
-                    'knee': 35,
-                    'ankle': 40,
-                    'foot': 48
-                }
+        self.joints = {
+            'left': {
+                'hip_roll': 1,
+                'hip_yaw': 4,
+                'hip_pitch': 7,
+                'knee': 10,
+                'ankle': 15,
+                'foot': 23
+            },
+            'right': {
+                'hip_roll': 26,
+                'hip_yaw': 29,
+                'hip_pitch': 32,
+                'knee': 35,
+                'ankle': 40,
+                'foot': 48
             }
-        elif self.dimension == '2d':
-            self.joints = {
-                'left': {
-                    'hip_roll': 4,
-                    'hip_yaw': 7,
-                    'hip_pitch': 10,
-                    'knee': 13,
-                    'ankle': 18,
-                    'foot': 26
-                },
-                'right': {
-                    'hip_roll': 29,
-                    'hip_yaw': 32,
-                    'hip_pitch': 35,
-                    'knee': 38,
-                    'ankle': 43,
-                    'foot': 51
-                }
-            }
+        }
+        if self.dimension == '2d':
+            if dimension == '2d':
+                for side in self.joints:
+                    for joint in self.joints[side]:
+                        self.joints[side][joint] += 3
+
         self.legs = list(joint_id for side in self.joints.values() for joint_name, joint_id in side.items() if joint_name != 'foot')
 
         # Indices to skip (for example, ankle joints)
@@ -67,11 +53,10 @@ class Environment:
             self.unused_joints = [
                 self.joints['left']['hip_roll'], self.joints['right']['hip_roll'],
                 self.joints['left']['hip_yaw'], self.joints['right']['hip_yaw'],
-                self.joints['left']['hip_pitch'], self.joints['right']['hip_pitch']
             ]
             # Add hip_roll and hip_yaw joints to the exclusion list
             self.exclusion_joint_indices.extend(self.unused_joints)
-        
+            
         # Target of movement by learning
         self.target_action = target_action
         
@@ -105,7 +90,7 @@ class Environment:
         ''' Set up the physics engine and environment '''
         # Load robot URDF
         self.robot = self.load_robot(self.robot_path)
-
+                
         # Make closed link
         self.make_closed_link(self.dimension)
 
@@ -114,6 +99,9 @@ class Environment:
        
         # Dictionary to store the robot's state
         self.states = {'pos': 0}
+
+        if self.dimension=='2d':
+            self.constraint_torque()
 
     def load_robot(self, robot_path):
         return p.loadURDF(robot_path, basePosition=self.initial_position, baseOrientation=self.initial_orientation)
@@ -147,6 +135,18 @@ class Environment:
         )
         p.changeConstraint(constraint_id_43_49, maxForce=maxForce)
     
+    def set_color(self):
+        for joint_id in range(-1, p.getNumJoints(self.robot), 1):
+            p.changeVisualShape(self.robot, joint_id, rgbaColor=[0.5,0.5,0.5,1.00])
+    
+    def constraint_torque(self):
+        for index in self.exclusion_joint_indices:
+            p.setJointMotorControl2(bodyUniqueId=self.robot,
+                                    jointIndex=index, 
+                                    controlMode=p.TORQUE_CONTROL,
+                                    force=14
+                                   )
+    
     def reset(self):
         ''' Reset the environment to the initial state '''
         p.removeBody(self.robot)
@@ -174,25 +174,45 @@ class Environment:
             else:
                 pass
     
+    def initial_pose(self):
+        angles = {
+            'hip_roll': 0,
+            'hip_yaw': 0,
+            'hip_pitch': 0,
+            'knee': 0,
+            'ankle': 0
+        }
+        torque = {
+            'hip_roll': 14,
+            'hip_yaw': 14,
+            'hip_pitch': 14,
+            'knee': 14,
+            'ankle': 14
+        }
+        initial_action = {
+            'left': {'angles': angles, 'torques': torque},
+            'right':{'angles': angles, 'torques': torque}
+        }
+        self.control_by_model(initial_action)
+    
     def control_by_model(self, action):
         # Control left leg
         for name, index in self.joints['left'].items():
             if index not in self.exclusion_joint_indices:
-                if name in action['left']['angles']:
-                # if name in action['left']['angles'] and name in action['left']['torques']:
+                if name in action['left']['angles'] and name in action['left']['torques']:
                     angle = action['left']['angles'][name]
-                    # torque = action['left']['torques'][name]
-                    self.control_leg('left', name, angle)
+                    torque = action['left']['torques'][name]
+                    self.control_leg('left', name, angle, torque)
 
         # Control right leg
         for name, index in self.joints['right'].items():
             if index not in self.exclusion_joint_indices:
-                if name in action['right']['angles']:
+                if name in action['left']['angles'] and name in action['left']['torques']:
                     angle = action['right']['angles'][name]
-                    # torque = action['right']['torques'][name]
-                    self.control_leg('right', name, angle)
+                    torque = action['right']['torques'][name]
+                    self.control_leg('right', name, angle, torque)
 
-    def control_leg(self, side, joint, angle, torque=1.4):
+    def control_leg(self, side, joint, angle, torque):
         """
         Function to control the robot's legs based on the specified parameters.
         :param side: String indicating left or right leg ('left' or 'right').
@@ -209,6 +229,7 @@ class Environment:
                                 targetPosition=angle,
                                 force=torque
                                 )
+
 
     def get_observation(self):
         self.states['pre_pos'] = self.states['pos']
@@ -255,7 +276,7 @@ class Environment:
                 pos_z = p.getLinkState(self.robot, body_id)[4][2]
                 if pos_z < 0.1:
                     contact = True
-        if contact or self.sim_time <= self.t:
+        if contact:
             done = True
         return done
     
@@ -273,6 +294,7 @@ class Environment:
     def test_simulation(self):
         while True:
             self.step()
+            self.initial_pose()
 
     def disconnect(self):
         p.disconnect()

@@ -24,7 +24,7 @@ def reward_stationary(states):
 
         # Penalties based on overall power, speed, and energy consumption
         # reward -= states['total_force'] * 0.05     # Penalties based on total force
-        # reward -= self.states['total_velocity'] * 0.05  # Penalties based on total velocity
+        reward -= states['total_velocity'] * 0.05  # Penalties based on total velocity
 
         # Check if both feet are in contact with the ground
         if states['left_foot_contact'] and states['right_foot_contact']:

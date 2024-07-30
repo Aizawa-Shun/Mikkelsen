@@ -39,13 +39,11 @@ class DQNAgent:
     def __init__(self, input_dim, config, dimension):
         self.state_dim = input_dim
 
-        self.num_joints  = 8
-
-        self.angle_range = np.deg2rad(np.arange(-45, 45, 1))
-        self.torque_range = np.arange(1, 14, 1)
+        self.angle_range = np.deg2rad(np.arange(-40, 40, 1))
+        self.torque_range = np.arange(12, 15, 1)
         self.angle_range_size = len(self.angle_range)
         self.torque_range_size = len(self.torque_range)
-        
+
         self.joints = {
             'left': {
                 'hip_roll': 1,
@@ -68,6 +66,13 @@ class DQNAgent:
                 for joint in self.joints[side]:
                     self.joints[side][joint] += 3
         
+        if dimension == '3d':
+            self.used_joint = ['hip_roll', 'hip_yaw', 'hip_pitch', 'knee']
+        elif dimension == '2d':
+            self.used_joint = ['hip_pitch', 'knee']
+        
+        self.num_joints  =  len(self.used_joint) * 2
+
         self.targget_update = config['targget_update']
         self.target_reward = config['target_reward']
         self.checkpoint_interval = config.get('checkpoint_interval', 100) 
@@ -157,7 +162,7 @@ class DQNAgent:
 
         for side in ['left', 'right']:
             for i, joint in enumerate(self.joints[side].keys()):
-                if joint != 'ankle':  # Skip ankle joints
+                if joint in self.used_joint:  # Skip exclusion joints
                     # Select angle
                     angle_prob = angles_probabilities[0, i, :]
                     if len(self.angle_range) != len(angle_prob):
@@ -186,7 +191,7 @@ class DQNAgent:
         one_hot = torch.tensor(one_hot_list, dtype=torch.float32)
         action = {
             'left': {'angles': left_joint_angles, 'torques': left_joint_torques},
-            'right': {'angles': right_joint_angles, 'torques': right_joint_torques}
+            'right':{'angles': right_joint_angles, 'torques': right_joint_torques}
         }
         return action, one_hot
     

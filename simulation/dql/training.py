@@ -15,6 +15,7 @@ def train_agent(environment, agent, config):
     for episode in range(agent.episodes, config['episodes']):
         if episode != 0: states = environment.reset()
         agent.setup()
+        environment.initial_pose()
         environment.step()
         environment.get_observation()
         agent.first_states(environment.states)
