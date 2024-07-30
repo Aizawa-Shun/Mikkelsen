@@ -1,3 +1,5 @@
+import numpy as np
+
 def reward_stationary(states):
         '''
         Calculate the reward for maintaining a stable upright posture.
@@ -16,7 +18,7 @@ def reward_stationary(states):
         # Reward based on Center of Mass (CoM) height
         target_height = 0.30
         height_diff = abs(states['pos'][2] - target_height)
-        reward += max(0, 1 - height_diff) * 5
+        reward += max(0, 1 - height_diff) * 5.5
 
         # Reward based on lateral position
         # lateral_position = abs(states['pos'][0]) + abs(states['pos'][1])
@@ -25,6 +27,11 @@ def reward_stationary(states):
         # Penalties based on overall power, speed, and energy consumption
         # reward -= states['total_force'] * 0.05     # Penalties based on total force
         reward -= states['total_velocity'] * 0.05  # Penalties based on total velocity
+
+        # Reward based on ZMP and support polygon area
+        if states['zmp'] and states['contact_area']:
+            zmp_in_support_polygon = np.linalg.norm(states['zmp'][:2]) <= np.sqrt(states['contact_area'])
+            reward += 1.0 if zmp_in_support_polygon else -1.0
 
         # Check if both feet are in contact with the ground
         if states['left_foot_contact'] and states['right_foot_contact']:

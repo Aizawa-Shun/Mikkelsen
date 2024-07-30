@@ -2,6 +2,7 @@ import pybullet as p
 import pybullet_data
 from time import sleep
 import numpy as np
+from scipy.spatial import ConvexHull
 from utils.keyboard import InputHandler
 from utils.camera import Camera
 from simulation import rewards
@@ -164,7 +165,7 @@ class Environment:
             self.control_by_model(action)
             self.get_observation()
             if self.target_action == 'stationary':
-                reward = rewards.reward_stationary(self.states)
+                reward = rewards.reward_stationary(self.states, )
             done = self.check_done()
             return  reward, done
         else:
@@ -251,6 +252,9 @@ class Environment:
 
         self.states['total_force'] = np.sum(np.abs(self.states['joint_torques']))
         self.states['total_velocity'] = np.sum(np.abs(self.states['joint_velocities']))
+
+        self.states['zmp']  = self.calculate_zmp()
+        self.states['contact_area'] = self.calculate_contact_area()
     
     def check_done(self):
         done = False
@@ -274,7 +278,7 @@ class Environment:
             if contact == None:
                 body_id = 4
                 pos_z = p.getLinkState(self.robot, body_id)[4][2]
-                if pos_z < 0.1:
+                if pos_z < 0.13:
                     contact = True
         if contact:
             done = True
@@ -295,6 +299,75 @@ class Environment:
         while True:
             self.step()
             self.initial_pose()
+    
+    def calculate_zmp(self):
+        total_force = np.zeros(3)
+        total_moment = np.zeros(3)
+        total_mass = 0
+
+        for link_id in range(p.getNumJoints(self.robot)):
+            link_state = p.getLinkState(self.robot, link_id)
+            link_world_position = link_state[4]
+            link_mass = p.getDynamicsInfo(self.robot, link_id)[0]
+            link_forces = np.array(p.getJointState(self.robot, link_id)[2])
+            link_force = link_forces[:3]
+
+            # Calculation of total forces and moments at the center of gravity
+            total_force += link_mass * link_force
+            total_moment += np.cross(link_world_position, link_mass * link_force)
+            total_mass += link_mass
+
+        com = total_force / total_mass
+        zmp_x = com[0] - (total_moment[1] / total_force[2])
+        zmp_y = com[1] + (total_moment[0] / total_force[2])
+        
+        zmp = [zmp_x, zmp_y, 0]
+
+        return zmp
+  
+    def calculate_contact_area(self):
+        contact_areas = []
+        foot_link_indices = [self.joints['left']['foot'], self.joints['right']['foot']]
+
+        for foot_link_index in foot_link_indices:
+            contact_points = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=foot_link_index)
+            if not contact_points:
+                contact_areas.append(0.0)
+                continue
+
+            points = np.array([point[6] for point in contact_points])
+            if len(points) < 3:
+                contact_areas.append(0.0)
+                continue
+
+            hull = ConvexHull(points[:, :2])
+            area = hull.volume
+            contact_areas.append(area)
+
+        if len(foot_link_indices) == 1:
+            return contact_areas[0]
+        elif len(foot_link_indices) == 2:
+            if contact_areas[0] == 0.0 or contact_areas[1] == 0.0:
+                return max(contact_areas)  # One of the foot links is not in contact, return the area of the other
+            else:
+                # Calculate the support polygon area
+                contact_points_1 = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=foot_link_indices[0])
+                contact_points_2 = p.getContactPoints(bodyA=self.robot, bodyB=self.plane, linkIndexA=foot_link_indices[1])
+                
+                points_1 = np.array([point[6] for point in contact_points_1])
+                points_2 = np.array([point[6] for point in contact_points_2])
+                combined_points = np.vstack((points_1, points_2))
+                
+                if len(combined_points) < 3:
+                    return 0.0
+                
+                hull = ConvexHull(combined_points[:, :2])
+                support_polygon_area = hull.volume
+
+                return support_polygon_area
+        else:
+            raise ValueError("foot_link_indices must contain 1 or 2 elements")
+
 
     def disconnect(self):
         p.disconnect()

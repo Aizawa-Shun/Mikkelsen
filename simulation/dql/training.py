@@ -3,7 +3,7 @@ from utils.plotter import Plotter
 from utils.free_memory import free_memory
 from utils.restart import restart_program
 
-data_saver = DataSaver('data/rewards.csv', 'data/joint_angles.csv')
+data_saver = DataSaver('data/rewards.csv', 'data/joint_angles.csv', 'data/joint_torques.csv')
 
 def train_agent(environment, agent, config):
     target_reward = config['target_reward']
@@ -32,6 +32,7 @@ def train_agent(environment, agent, config):
 
                 if save_data:
                     data_saver.save_joint_angles(episode, environment.t, environment.states['joint_positions'])
+                    data_saver.save_torque_angles(episode, environment.t, environment.states['joint_torques'])
                 count = 0
             else:
                 done = environment.step()
