@@ -1122,6 +1122,57 @@
 
 
 
+
+<joint name="��] 241" type="revolute">
+  <origin xyz="-0.005236 -0.125216 -0.003583" rpy="0 0 0"/>
+  <parent link="R_ankle_xl_2"/>
+  <child link="R_ankle_2"/>
+  <axis xyz="0.071895 -0.997404 0.004038"/>
+  <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
+</joint>
+
+<joint name="��] 285" type="revolute">
+  <origin xyz="-0.013397 -0.012011 -0.004041" rpy="0 0 0"/>
+  <parent link="L_ankle_xl_2"/>
+  <child link="L_ankle_2"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+  <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
+</joint>
+
+<joint name="��] 244" type="revolute">
+  <origin xyz="-0.036704 0.154195 -0.016398" rpy="0 0 0"/>
+  <parent link="ankle_link_2_2"/>
+  <child link="R_bionic_biped_robot_ankle_bar_1"/>
+  <axis xyz="0.071895 -0.997404 0.004038"/>
+  <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
+</joint>
+
+<joint name="��] 245" type="revolute">
+  <origin xyz="0.073044 -0.130882 -0.073202" rpy="0 0 0"/>
+  <parent link="R_bionic_biped_robot_ankle_bar_1"/>
+  <child link="R_ankle_bar_parts_1"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+  <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
+</joint>
+
+<joint name="��] 288" type="revolute">
+  <origin xyz="-0.02423 -0.018855 -0.015698" rpy="0 0 0"/>
+  <parent link="ankle_link_2_1"/>
+  <child link="L_bionic_biped_robot_ankle_bar_v2_1"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+  <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
+</joint>
+
+<joint name="��] 294" type="revolute">
+  <origin xyz="0.062297 0.000176 -0.074829" rpy="0 0 0"/>
+  <parent link="L_bionic_biped_robot_ankle_bar_v2_1"/>
+  <child link="L_ankle_bar_parts_v1_1"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+  <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
+</joint>
+
+
+
 <joint name="��] 249" type="revolute">
   <origin xyz="0.010519 -0.134088 0.001069" rpy="0 0 0"/>
   <parent link="shaft_1"/>
@@ -1232,13 +1283,6 @@
   <child link="R_ankle_xl_2"/>
 </joint>
 
-<joint name="��] 241" type="continuous">
-  <origin xyz="-0.005236 -0.125216 -0.003583" rpy="0 0 0"/>
-  <parent link="R_ankle_xl_2"/>
-  <child link="R_ankle_2"/>
-  <axis xyz="0.071895 -0.997404 0.004038"/>
-</joint>
-
 <joint name="���� 242" type="fixed">
   <origin xyz="-0.000144 0.001995 -8e-06" rpy="0 0 0"/>
   <parent link="R_ankle_2"/>
@@ -1249,20 +1293,6 @@
   <origin xyz="0.002588 -0.035907 0.000145" rpy="0 0 0"/>
   <parent link="R_ankle_2"/>
   <child link="ankle_link_2_2"/>
-</joint>
-
-<joint name="��] 244" type="continuous">
-  <origin xyz="-0.036704 0.154195 -0.016398" rpy="0 0 0"/>
-  <parent link="ankle_link_2_2"/>
-  <child link="R_bionic_biped_robot_ankle_bar_1"/>
-  <axis xyz="0.071895 -0.997404 0.004038"/>
-</joint>
-
-<joint name="��] 245" type="continuous">
-  <origin xyz="0.073044 -0.130882 -0.073202" rpy="0 0 0"/>
-  <parent link="R_bionic_biped_robot_ankle_bar_1"/>
-  <child link="R_ankle_bar_parts_1"/>
-  <axis xyz="-0.071895 0.997404 -0.004038"/>
 </joint>
 
 <joint name="���� 246" type="fixed">
@@ -1375,13 +1405,6 @@
   <child link="L_ankle_xl_2"/>
 </joint>
 
-<joint name="��] 285" type="continuous">
-  <origin xyz="-0.013397 -0.012011 -0.004041" rpy="0 0 0"/>
-  <parent link="L_ankle_xl_2"/>
-  <child link="L_ankle_2"/>
-  <axis xyz="-0.071895 0.997404 -0.004038"/>
-</joint>
-
 <joint name="���� 286" type="fixed">
   <origin xyz="-0.002588 0.035907 -0.000145" rpy="0 0 0"/>
   <parent link="L_ankle_2"/>
@@ -1392,13 +1415,6 @@
   <origin xyz="0.000144 -0.001995 8e-06" rpy="0 0 0"/>
   <parent link="L_ankle_2"/>
   <child link="ankle_link_1_1"/>
-</joint>
-
-<joint name="��] 288" type="continuous">
-  <origin xyz="-0.02423 -0.018855 -0.015698" rpy="0 0 0"/>
-  <parent link="ankle_link_2_1"/>
-  <child link="L_bionic_biped_robot_ankle_bar_v2_1"/>
-  <axis xyz="-0.071895 0.997404 -0.004038"/>
 </joint>
 
 <joint name="���� 289" type="fixed">
@@ -1417,13 +1433,6 @@
   <origin xyz="0.02143 0.131186 -0.048491" rpy="0 0 0"/>
   <parent link="leg_lower_1"/>
   <child link="shaft_4"/>
-</joint>
-
-<joint name="��] 294" type="continuous">
-  <origin xyz="0.062297 0.000176 -0.074829" rpy="0 0 0"/>
-  <parent link="L_bionic_biped_robot_ankle_bar_v2_1"/>
-  <child link="L_ankle_bar_parts_v1_1"/>
-  <axis xyz="-0.071895 0.997404 -0.004038"/>
 </joint>
 
 <joint name="���� 295" type="fixed">

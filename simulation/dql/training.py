@@ -3,14 +3,14 @@ from utils.plotter import Plotter
 from utils.free_memory import free_memory
 from utils.restart import restart_program
 
-data_saver = DataSaver('data/rewards.csv', 'data/joint_angles.csv', 'data/joint_torques.csv')
-
-def train_agent(environment, agent, config):
+def train_agent(environment, agent, config, mode):
     target_reward = config['target_reward']
     learning_interval = config['learning_interval']
     save_path = config['weight_save_path']
     count = learning_interval
     save_data = config['save_data']
+
+    data_saver = DataSaver(mode)
     
     for episode in range(agent.episodes, config['episodes']):
         if episode != 0: states = environment.reset()
@@ -60,5 +60,9 @@ def train_agent(environment, agent, config):
             if average_reward >= target_reward:
                 agent.save_weight_file(save_path)
                 if save_data:
-                    Plotter.plot_rewards('data/rewards.csv')
-                    Plotter.plot_joint_angles('data/joint_angles.csv', episode)
+                    Plotter.plot_rewards(data_saver.directory)
+                    Plotter.plot_joint_angles(data_saver.directory, episode)
+
+                    # Zip the folder
+                    data_saver.zip_directory()
+

@@ -5,7 +5,7 @@ algorithm: "dql"
 dimension: "2d"
 
 simulation:
-  gui: True
+  gui: False
   sim_time: 60
   robot_urdf: "simulation/urdf/mikkelsen_description/urdf/mikkelsen.xacro"
   robot2d_urdf: "simulation/urdf/mikkelsen2d_description/urdf/mikkelsen2d.xacro"
@@ -23,7 +23,7 @@ dql_agent:
   use_checkpoint: True
   make_file: True
   episodes: 10000000
-  target_reward: 100
+  target_reward: -1000
   learning_rate: 0.001
   learning_interval: 0.05
   targget_update: 10

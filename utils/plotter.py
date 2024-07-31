@@ -1,13 +1,15 @@
 import matplotlib.pyplot as plt
 import csv
-
+import os
 
 class Plotter:
     @staticmethod
-    def plot_rewards(filepath):
+    def plot_rewards(directory):
+        reward_filepath = os.path.join(directory, 'rewards.csv')
+        output_filepath = os.path.join(directory, 'rewards.png')
         episodes = []
         rewards = []
-        with open(filepath, mode='r') as file:
+        with open(reward_filepath, mode='r') as file:
             reader = csv.reader(file)
             next(reader)  # Skip header
             for row in reader:
@@ -18,11 +20,13 @@ class Plotter:
         plt.xlabel('Episodes')
         plt.ylabel('Reward')
         plt.title('Training Progress')
-        plt.savefig('data/rewards.png')
+        plt.savefig(output_filepath)
         plt.show()
 
     @staticmethod
-    def plot_joint_angles(angles_filepath, episode_to_plot):
+    def plot_joint_angles(directory, episode_to_plot):
+        angles_filepath = os.path.join(directory, 'angles.csv')
+        output_filepath = os.path.join(directory, 'angles.png')
         time = []
         joint_angles = [[] for _ in range(10)]  # Assuming 10 joints
         episodes = []
@@ -53,5 +57,5 @@ class Plotter:
         plt.ylabel('Joint Angles')
         plt.title(f'Joint Angles Progress for Episode {episode_to_plot}')
         plt.legend()
-        plt.savefig(f'data/joint_angles_episode_{episode_to_plot}.png')
+        plt.savefig(output_filepath)
         plt.show()
