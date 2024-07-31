@@ -166,8 +166,11 @@ class Environment:
             self.check_done()
             if self.target_action == 'stationary':
                 reward = rewards.stationary(self.states)
-            elif self.target_action == 'walk' and self.dimension == '2d':
-                reward = rewards.walk_2d(self.states, self.done)
+            elif self.target_action == 'walk':
+                if self.dimension == '2d':
+                    reward = rewards.walk_2d(self.states, self.done)
+                elif self.dimension == '3d':
+                    reward = rewards.walk_3d(self.states, self.done)
             return  reward, self.done
         else:
             if self.is_check_down:
@@ -282,7 +285,7 @@ class Environment:
             if contact == None:
                 body_id = 4
                 pos_z = p.getLinkState(self.robot, body_id)[4][2]
-                if pos_z < 0.13:
+                if pos_z < 0.145:
                     contact = True
         if contact:
             self.done = True

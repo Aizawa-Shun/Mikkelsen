@@ -7,7 +7,7 @@ from real_robot.controller import HardwareController
 def run_train_dql(config, operation, mode, dimension, target_action, algorithm):
     environment = Environment(config['simulation'], operation, mode, dimension, target_action)
     agent = DQNAgent(config['dql_agent']['input_size'], config['dql_agent'], dimension)
-    train_agent(environment, agent, config['dql_agent'], mode, algorithm)
+    train_agent(environment, agent, config['dql_agent'], dimension, mode, algorithm)
     environment.disconnect()
 
 def run_train_ars(config, operation, mode, dimension, target_action, algorithm):

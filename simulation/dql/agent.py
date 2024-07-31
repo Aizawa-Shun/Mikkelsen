@@ -38,8 +38,8 @@ class DQNAgent:
     def __init__(self, input_dim, config, dimension):
         self.state_dim = input_dim
 
-        self.angle_range = np.deg2rad(np.arange(-40, 40, 1))
-        self.torque_range = np.arange(100, 150, 5)
+        self.angle_range = np.deg2rad(np.arange(-30, 30, 2))
+        self.torque_range = np.arange(1.0, 1.4, 0.1)
         self.angle_range_size = len(self.angle_range)
         self.torque_range_size = len(self.torque_range)
 

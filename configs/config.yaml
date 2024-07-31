@@ -2,7 +2,7 @@ operation: "simulation"
 mode: "train"
 target_action: "walk"
 algorithm: "dql"
-dimension: "2d"
+dimension: "3d"
 
 simulation:
   gui: True
@@ -25,7 +25,7 @@ dql_agent:
   episodes: 10000000
   target_reward: 10
   learning_rate: 0.001
-  learning_interval: 0.05
+  learning_interval: 0.1
   targget_update: 10
   input_size: 23
   output_dim: 8

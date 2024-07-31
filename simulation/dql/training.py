@@ -3,14 +3,14 @@ from utils.plotter import Plotter
 from utils.free_memory import free_memory
 from utils.restart import restart_program
 
-def train_agent(environment, agent, config, mode, algorithm):
+def train_agent(environment, agent, config, dimention, mode, algorithm):
     target_reward = config['target_reward']
     learning_interval = config['learning_interval']
     save_path = config['weight_save_path']
     count = learning_interval
     save_data = config['save_data']
 
-    data_saver = DataSaver(mode, algorithm)
+    data_saver = DataSaver(dimention, mode, algorithm)
     
     for episode in range(agent.episodes, config['episodes']):
         if episode != 0: states = environment.reset()
