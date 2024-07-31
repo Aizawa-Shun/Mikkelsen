@@ -4,13 +4,13 @@ def walk_2d(states, falling):
     reward = 0
 
     # Reward based on forward distance
-    if states['pos'][0] > 0: reward += states['pos'][0] * 100
+    if states['pos'][0] > 0: reward += states['pos'][0] * 500
 
     # Penalty based on falling down
     if falling: reward -= 100
 
     # Penalty based on total force
-    reward -= states['total_force'] * 1.5     
+    reward -= states['total_force'] * 0.8     
     return  reward
 
 def stationary(states):
