@@ -4,11 +4,11 @@ from datetime import datetime
 import shutil
 
 class DataSaver:
-    def __init__(self, mode):
+    def __init__(self, mode, algorithm):
         # Get today date
         date_str = datetime.now().strftime("%Y%m%d")
         # Create directory path
-        self.directory = os.path.join('data', f'{date_str}_{mode}')
+        self.directory = os.path.join('data', f'{date_str}_{algorithm}_{mode}')
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
             

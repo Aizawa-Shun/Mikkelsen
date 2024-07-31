@@ -5,7 +5,7 @@ algorithm: "dql"
 dimension: "2d"
 
 simulation:
-  gui: False
+  gui: True
   sim_time: 60
   robot_urdf: "simulation/urdf/mikkelsen_description/urdf/mikkelsen.xacro"
   robot2d_urdf: "simulation/urdf/mikkelsen2d_description/urdf/mikkelsen2d.xacro"

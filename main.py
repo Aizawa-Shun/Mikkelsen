@@ -4,10 +4,10 @@ from simulation.dql.agent import DQNAgent
 from simulation.dql.training import train_agent
 from real_robot.controller import HardwareController
 
-def run_train_dql(config, operation, mode, dimension, target_action):
+def run_train_dql(config, operation, mode, dimension, target_action, algorithm):
     environment = Environment(config['simulation'], operation, mode, dimension, target_action)
     agent = DQNAgent(config['dql_agent']['input_size'], config['dql_agent'], dimension)
-    train_agent(environment, agent, config['dql_agent'], mode)
+    train_agent(environment, agent, config['dql_agent'], mode, algorithm)
     environment.disconnect()
 
 def run_footstep():
@@ -32,7 +32,7 @@ def main():
     if operation == 'simulation':
         if mode == 'train':
             if algorithm == 'dql':
-                run_train_dql(config, operation, mode, dimension, target_action)
+                run_train_dql(config, operation, mode, dimension, target_action, algorithm)
             elif algorithm == 'ars':
                 pass
         elif mode == 'execution':

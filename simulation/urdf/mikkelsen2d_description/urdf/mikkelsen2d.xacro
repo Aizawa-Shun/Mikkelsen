@@ -15,7 +15,7 @@
 </link>
 <link name="z_prismatic">
   <inertial>
-    <mass value="100"/>
+    <mass value="80"/>
     <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </inertial>
@@ -1139,6 +1139,7 @@
   <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
 </joint>
 
+
 <joint name="��] 244" type="revolute">
   <origin xyz="-0.036704 0.154195 -0.016398" rpy="0 0 0"/>
   <parent link="ankle_link_2_2"/>
@@ -1170,7 +1171,6 @@
   <axis xyz="-0.071895 0.997404 -0.004038"/>
   <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
 </joint>
-
 
 
 <joint name="��] 249" type="revolute">
