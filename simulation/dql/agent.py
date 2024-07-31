@@ -3,7 +3,6 @@ from torch import tensor, optim, device, cuda
 import torch.nn.functional as F
 import torch.nn as nn
 import numpy as np
-import random
 import os
 
 class NeuralNetwork(nn.Module):
@@ -40,7 +39,7 @@ class DQNAgent:
         self.state_dim = input_dim
 
         self.angle_range = np.deg2rad(np.arange(-40, 40, 1))
-        self.torque_range = np.arange(12, 15, 1)
+        self.torque_range = np.arange(100, 150, 5)
         self.angle_range_size = len(self.angle_range)
         self.torque_range_size = len(self.torque_range)
 

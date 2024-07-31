@@ -1,19 +1,19 @@
 operation: "simulation"
 mode: "train"
-target_action: "stationary"
+target_action: "walk"
 algorithm: "dql"
 dimension: "2d"
 
 simulation:
-  gui: False
+  gui: True
   sim_time: 60
   robot_urdf: "simulation/urdf/mikkelsen_description/urdf/mikkelsen.xacro"
   robot2d_urdf: "simulation/urdf/mikkelsen2d_description/urdf/mikkelsen2d.xacro"
   frame_urdf: "simulation/urdf/frames_description/urdf/frames.xacro"
   dt: 0.01
   step_dt: 1.0
-  initial_position: [0, 0, 0.40] # Initial robot position
-  initial_orientation: [0, 0, 0] # Initial robot orientation
+  initial_position: [0, 0, 0.40]  # Initial robot position
+  initial_orientation: [0, 0, 0]  # Initial robot orientation
 
 real_robot:
   run_time: 60
@@ -25,11 +25,11 @@ dql_agent:
   episodes: 10000000
   target_reward: 100
   learning_rate: 0.001
-  learning_interval: 0.50
+  learning_interval: 0.05
   targget_update: 10
   input_size: 23
   output_dim: 8
-  hidden_layers: [256, 128, 128, 64, 64, 32]
+  hidden_layers: [128, 64, 64, 32]
   checkpoint_interval: 100
   weight_save_path: "simulation/dql/weight/dql_weight.pth"
   checkpoint_path: "simulation/dql/checkpoint/checkpoint.pth"

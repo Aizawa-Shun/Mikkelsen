@@ -21,6 +21,7 @@ def train_agent(environment, agent, config):
         agent.first_states(environment.states)
         done = False
         states = environment.states
+        environment.done = False
 
         while not done:
             if learning_interval <= count:

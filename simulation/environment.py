@@ -22,6 +22,8 @@ class Environment:
         self.dt = config['dt']
         self.step_dt = config['step_dt']
 
+        self.done = False
+
         self.joints = {
             'left': {
                 'hip_roll': 1,
@@ -91,9 +93,12 @@ class Environment:
         ''' Set up the physics engine and environment '''
         # Load robot URDF
         self.robot = self.load_robot(self.robot_path)
-                
+
         # Make closed link
         self.make_closed_link(self.dimension)
+
+        # Set color
+        self.set_color()
 
         # Simulation time
         self.t = 0
@@ -101,14 +106,14 @@ class Environment:
         # Dictionary to store the robot's state
         self.states = {'pos': 0}
 
-        if self.dimension=='2d':
-            self.constraint_torque()
+     
+
 
     def load_robot(self, robot_path):
         return p.loadURDF(robot_path, basePosition=self.initial_position, baseOrientation=self.initial_orientation)
     
     def make_closed_link(self, dimension, maxForce=10e5):
-        parent_index1, child_index1, parent_index2, child_index2 = 24, 19, 43, 49
+        parent_index1, child_index1, parent_index2, child_index2 = 19, 24, 43, 49
         if dimension == '2d':
             parent_index1, child_index1, parent_index2, child_index2 = (
                 parent_index1 + 3, child_index1 + 3, parent_index2 + 3, child_index2 + 3
@@ -119,34 +124,28 @@ class Environment:
             childBodyUniqueId=self.robot,
             childLinkIndex=child_index1,
             jointType=p.JOINT_POINT2POINT, 
-            jointAxis=[0, 0, 1],
+            jointAxis=[0, 0, 0],
             parentFramePosition=[0, 0, 0],
             childFramePosition=[0, 0, 0]
         )
         p.changeConstraint(constraint_id_19_24, maxForce=maxForce)
+        
         constraint_id_43_49 = p.createConstraint(
             parentBodyUniqueId=self.robot,
             parentLinkIndex=parent_index2,
             childBodyUniqueId=self.robot,
             childLinkIndex=child_index2,
             jointType=p.JOINT_POINT2POINT, 
-            jointAxis=[0, 0, 1],
+            jointAxis=[0, 0, 0],
             parentFramePosition=[0, 0, 0],
             childFramePosition=[0, 0, 0]
         )
         p.changeConstraint(constraint_id_43_49, maxForce=maxForce)
+        
     
     def set_color(self):
         for joint_id in range(-1, p.getNumJoints(self.robot), 1):
             p.changeVisualShape(self.robot, joint_id, rgbaColor=[0.5,0.5,0.5,1.00])
-    
-    def constraint_torque(self):
-        for index in self.exclusion_joint_indices:
-            p.setJointMotorControl2(bodyUniqueId=self.robot,
-                                    jointIndex=index, 
-                                    controlMode=p.TORQUE_CONTROL,
-                                    force=14
-                                   )
     
     def reset(self):
         ''' Reset the environment to the initial state '''
@@ -164,14 +163,16 @@ class Environment:
         if action != None:
             self.control_by_model(action)
             self.get_observation()
+            self.check_done()
             if self.target_action == 'stationary':
-                reward = rewards.reward_stationary(self.states, )
-            done = self.check_done()
-            return  reward, done
+                reward = rewards.stationary(self.states)
+            elif self.target_action == 'walk' and self.dimension == '2d':
+                reward = rewards.walk_2d(self.states, self.done)
+            return  reward, self.done
         else:
             if self.is_check_down:
-                done = self.check_done()
-                return done
+                self.check_done()
+                return self.done
             else:
                 pass
     
@@ -204,7 +205,6 @@ class Environment:
                     angle = action['left']['angles'][name]
                     torque = action['left']['torques'][name]
                     self.control_leg('left', name, angle, torque)
-
         # Control right leg
         for name, index in self.joints['right'].items():
             if index not in self.exclusion_joint_indices:
@@ -231,10 +231,15 @@ class Environment:
                                 force=torque
                                 )
 
-
     def get_observation(self):
         self.states['pre_pos'] = self.states['pos']
-        pos, ori = p.getBasePositionAndOrientation(self.robot)
+
+        pos, ori = 0, 0 
+        if self.dimension == '3d':
+            pos, ori = p.getBasePositionAndOrientation(self.robot)
+        elif self.dimension == '2d':
+            body_id = 4
+            pos, ori = p.getLinkState(self.robot, body_id)[4], p.getLinkState(self.robot, body_id)[5]
         euler_angles = p.getEulerFromQuaternion(ori)
 
         self.states['pos'] = pos
@@ -257,7 +262,6 @@ class Environment:
         self.states['contact_area'] = self.calculate_contact_area()
     
     def check_done(self):
-        done = False
         contact = None
 
         if self.dimension == '3d':
@@ -281,8 +285,7 @@ class Environment:
                 if pos_z < 0.13:
                     contact = True
         if contact:
-            done = True
-        return done
+            self.done = True
     
     def get_joints_info(self):
         jointNameToId = {} 

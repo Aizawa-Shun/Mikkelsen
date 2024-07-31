@@ -1,6 +1,19 @@
 import numpy as np
 
-def reward_stationary(states):
+def walk_2d(states, falling):
+    reward = 0
+
+    # Reward based on forward distance
+    if states['pos'][0] > 0: reward += states['pos'][0] * 100
+
+    # Penalty based on falling down
+    if falling: reward -= 100
+
+    # Penalty based on total force
+    reward -= states['total_force'] * 1.5     
+    return  reward
+
+def stationary(states):
         '''
         Calculate the reward for maintaining a stable upright posture.
 
@@ -18,7 +31,7 @@ def reward_stationary(states):
         # Reward based on Center of Mass (CoM) height
         target_height = 0.30
         height_diff = abs(states['pos'][2] - target_height)
-        reward += max(0, 1 - height_diff) * 5.5
+        reward += max(0, 1 - height_diff) * 8
 
         # Reward based on lateral position
         # lateral_position = abs(states['pos'][0]) + abs(states['pos'][1])
@@ -31,12 +44,15 @@ def reward_stationary(states):
         # Reward based on ZMP and support polygon area
         if states['zmp'] and states['contact_area']:
             zmp_in_support_polygon = np.linalg.norm(states['zmp'][:2]) <= np.sqrt(states['contact_area'])
-            reward += 1.0 if zmp_in_support_polygon else -1.0
+            reward += 3.0 if zmp_in_support_polygon else -2.0
 
         # Check if both feet are in contact with the ground
         if states['left_foot_contact'] and states['right_foot_contact']:
-            reward += 5.0
+            reward += 8.0
         else:
             reward -= 1.0
 
         return reward
+
+
+     

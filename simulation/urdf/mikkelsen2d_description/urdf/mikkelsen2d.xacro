@@ -15,7 +15,7 @@
 </link>
 <link name="z_prismatic">
   <inertial>
-    <mass value="50"/>
+    <mass value="100"/>
     <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </inertial>
@@ -1122,6 +1122,24 @@
 
 
 
+<joint name="��] 249" type="revolute">
+  <origin xyz="0.010519 -0.134088 0.001069" rpy="0 0 0"/>
+  <parent link="shaft_1"/>
+  <child link="foot_1"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+  <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
+</joint>
+
+<joint name="��] 292" type="revolute">
+  <origin xyz="0.010662 -0.136083 0.001077" rpy="0 0 0"/>
+  <parent link="shaft_4"/>
+  <child link="foot_2"/>
+  <axis xyz="-0.071895 0.997404 -0.004038"/>
+  <limit lower="-0.5236" upper="0.5236" effort="100" velocity="1.0"/>
+</joint>
+
+
+
 <joint name="���� 226" type="fixed">
   <origin xyz="-0.023805 -0.046388 -0.034586" rpy="0 0 0"/>
   <parent link="base_link"/>
@@ -1265,13 +1283,6 @@
   <child link="shaft_1"/>
 </joint>
 
-<joint name="��] 249" type="continuous">
-  <origin xyz="0.010519 -0.134088 0.001069" rpy="0 0 0"/>
-  <parent link="shaft_1"/>
-  <child link="foot_1"/>
-  <axis xyz="-0.071895 0.997404 -0.004038"/>
-</joint>
-
 <joint name="���� 270" type="fixed">
   <origin xyz="-0.032432 0.073301 -0.03507" rpy="0 0 0"/>
   <parent link="base_link"/>
@@ -1406,13 +1417,6 @@
   <origin xyz="0.02143 0.131186 -0.048491" rpy="0 0 0"/>
   <parent link="leg_lower_1"/>
   <child link="shaft_4"/>
-</joint>
-
-<joint name="��] 292" type="continuous">
-  <origin xyz="0.010662 -0.136083 0.001077" rpy="0 0 0"/>
-  <parent link="shaft_4"/>
-  <child link="foot_2"/>
-  <axis xyz="-0.071895 0.997404 -0.004038"/>
 </joint>
 
 <joint name="��] 294" type="continuous">
