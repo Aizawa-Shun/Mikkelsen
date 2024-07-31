@@ -10,6 +10,12 @@ def run_train_dql(config, operation, mode, dimension, target_action, algorithm):
     train_agent(environment, agent, config['dql_agent'], mode, algorithm)
     environment.disconnect()
 
+def run_train_ars(config, operation, mode, dimension, target_action, algorithm):
+    environment = Environment(config['simulation'], operation, mode, dimension, target_action)
+    agent = DQNAgent(config['ars_agent']['input_size'], config['ars_agent'], dimension)
+    train_agent(environment, agent, config['dql_agent'], mode, algorithm)
+    environment.disconnect()
+
 def run_footstep():
     pass
 
