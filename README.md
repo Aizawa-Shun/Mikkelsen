@@ -1,6 +1,6 @@
 # Bionic Bipedal Robot "Mikkelsen"
 
-![bionic_biped_robot](/aseets/mikkelsen.png)
+![bionic_biped_robot](/aseets/bionic_biped_robot.png)
 
 Implement and evaluate the results of training in a simulation environment using Deep Q-Learning and ARZ on a real-world robot.
 
